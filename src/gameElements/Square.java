@@ -2,6 +2,13 @@ package gameElements;
 
 /**
  * Created by simon on 17/02/17.
+ * Représente le plateau de jeu
  */
-public class Square {
+public interface Square {
+
+    public Player getPlayer();
+
+    public void setPlayer(Player player);
+
+    public String toString();
 }
