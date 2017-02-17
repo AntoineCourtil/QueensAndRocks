@@ -136,7 +136,22 @@ public class Board {
         return ok;
     }
 
-    
+    public String toStringAccess(){
+        String s = toString();
+        StringBuilder strb = new StringBuilder(s.length());
+        for(int i = 0; i<getSize(); i++){
+            for(int j = 0; j<getSize(); j++){
+                if(isAccessible(i, j)){
+                    strb.append("O");
+                }else{
+                    strb.append(s.charAt(i+j));
+                }
+            }
+        }
+        return strb.toString();
+    }
+
+
 
 
     public int numberOfAccessible() {
