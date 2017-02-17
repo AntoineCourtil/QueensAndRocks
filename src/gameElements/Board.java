@@ -16,7 +16,19 @@ public class Board {
 	//Il manque les getters et les setters ainsi que les classes externes telles que Square, Eval, Game, Player,...
 
 	public Board(){
-
+		this.game = new Game();
+		this.size = 8;
+		this.numberOfPieces = 0;
+		
+		Square[][] board = new Square[8][8];
+		
+		for(int i = 0; i<size; i++){
+			for(int j = 0; j<size; j++){
+				board[i][j] = this.game.getEmpty();
+			}
+		}
+		
+		this.board = board;
 	}
 
 
