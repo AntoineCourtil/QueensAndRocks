@@ -24,7 +24,7 @@ public class Queen implements Square{
 
     public String toString(){
         //TODO TO STRING
-        return "";
+        return "Q";
     }
 
     @Override

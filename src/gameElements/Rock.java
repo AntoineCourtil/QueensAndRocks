@@ -24,7 +24,7 @@ public class Rock implements Square{
 
     public String toString(){
         //TODO TO STRING
-        return "";
+        return "R";
     }
 
     @Override
