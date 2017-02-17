@@ -1,6 +1,7 @@
 package gameElements;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Board {
@@ -15,8 +16,9 @@ public class Board {
 	//Il manque les getters et les setters ainsi que les classes externes telles que Square, Eval, Game, Player,...
 
 	public Board(){
-		
+
 	}
+
 
 	public Board(Game game, int size, int numberOfPieces, Square[][] board){
 		this.game = game;
@@ -98,7 +100,8 @@ public class Board {
 	}
 
 	public boolean isAccessible(int i, int j) {
-		return null;
+
+		return true;
 		//return this.board.isAccessible(i, j);
 	}
 
@@ -162,6 +165,26 @@ public class Board {
 	public Board minimax(Board b, Player currentPlayer, int minimaxDepth, Eval evaluation) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Square getSquare(int i, int j){
+		//TODO VERIF
+		return board[i][j];
+	}
+
+	public String toString(){
+		StringBuilder strb = new StringBuilder();
+		for(int i = 0; i<size; i++){
+			for(int j = 0; j<size; j++){
+				strb.append(getSquare(i,j).toString());
+			}
+			strb.append("\n");
+		}
+		return strb.toString();
+	}
+
+	public Board clone(){
+		return new Board(this.getGame(),this.getSize(),this.getNumberOfPieces(),this.getBoard().clone());
 	}
 	
 	

@@ -1,3 +1,4 @@
+import gameElements.Board;
 import graphics.GameUI;
 
 /**
@@ -6,7 +7,7 @@ import graphics.GameUI;
 public class Main {
 
     public static void main(String[] args) {
-        GameUI gui = new GameUI();
+        GameUI gui = new GameUI(new Board());
         gui.launch();
 
     }
