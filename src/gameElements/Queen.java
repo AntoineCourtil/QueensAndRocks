@@ -14,7 +14,7 @@ public class Queen implements Square{
 
     @Override
     public Player getPlayer() {
-        return null;
+        return player;
     }
 
     @Override
