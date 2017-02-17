@@ -7,6 +7,10 @@ public class Rock implements Square{
     private Player player;
 
 
+    public Rock(Player p){
+        player = p;
+    }
+
     @Override
     public Player getPlayer() {
         return player;

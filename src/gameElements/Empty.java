@@ -7,6 +7,10 @@ public class Empty implements Square{
     private Player player;
 
 
+    public Empty(Player p){
+        player = p;
+    }
+
     @Override
     public Player getPlayer() {
         return null;

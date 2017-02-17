@@ -8,6 +8,10 @@ public class Queen implements Square{
     private Player player;
 
 
+    public Queen(Player p){
+        player = p;
+    }
+
     @Override
     public Player getPlayer() {
         return null;
