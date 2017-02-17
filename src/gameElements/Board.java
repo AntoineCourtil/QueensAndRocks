@@ -14,6 +14,10 @@ public class Board {
 	//Ceci est un squelette incomplet contenant uniquement le profil de quelques méthodes, dans le but de compiler la classe GameUI sans erreurs
 	//Il manque les getters et les setters ainsi que les classes externes telles que Square, Eval, Game, Player,...
 
+	public Board(){
+		
+	}
+
 	public Board(Game game, int size, int numberOfPieces, Square[][] board){
 		this.game = game;
 		this.size = size;
