@@ -3,5 +3,23 @@ package gameElements;
 /**
  * Created by simon on 17/02/17.
  */
-public class Rock {
+public class Rock implements Square{
+    private Player player;
+
+
+    @Override
+    public Player getPlayer() {
+        return player;
+    }
+
+    @Override
+    public void setPlayer(Player player) {
+
+    }
+
+
+    public String toString(){
+        //TODO TO STRING
+        return "";
+    }
 }
