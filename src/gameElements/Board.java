@@ -113,6 +113,10 @@ public class Board {
 
 	public boolean isAccessible(int i, int j) {
 
+		//TEST EN LIGNE
+		for(int k = 0; k<getSize(); k++){
+			getSquare(i, j).isEmpty();
+		}
 		return true;
 		//return this.board.isAccessible(i, j);
 	}
