@@ -155,17 +155,39 @@ public class Board {
 
 
     public int numberOfAccessible() {
-        // TODO Auto-generated method stub
-        return 0;
+    	int nbAccessible = 0;
+    	
+    	for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if(this.isAccessible(i, j)){
+                	nbAccessible++;
+                }
+            }
+        }
+    	
+        return nbAccessible;
     }
 
     public int numberOfQueens() {
-        // TODO Auto-generated method stub
-        return 0;
+    	int nbQueens = 0;
+    	
+    	for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+            	if(this.getPiece(i, j) instanceof Queen){
+            		nbQueens++;
+    			}
+            }
+        }
+    	
+        return nbQueens;
     }
 
     public boolean placeQueen(int i, int j) {
-        // TODO Auto-generated method stub
+        if(this.isAccessible(i, j)){
+        	this.setPiece(i, j, new Queen(this.game.getPlayer0()));
+        	this.numberOfPieces++;
+        	return true;
+        }
         return false;
     }
 
