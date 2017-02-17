@@ -1,3 +1,5 @@
+package graphics;
+
 import java.awt.BorderLayout;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
