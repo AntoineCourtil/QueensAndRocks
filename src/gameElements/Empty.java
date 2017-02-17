@@ -13,7 +13,7 @@ public class Empty implements Square{
 
     @Override
     public Player getPlayer() {
-        return null;
+        return player;
     }
 
     @Override
