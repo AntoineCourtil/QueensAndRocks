@@ -11,4 +11,6 @@ public interface Square {
     public void setPlayer(Player player);
 
     public String toString();
+
+    public boolean isEmpty();
 }

@@ -26,4 +26,9 @@ public class Rock implements Square{
         //TODO TO STRING
         return "";
     }
+
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
 }

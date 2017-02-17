@@ -26,4 +26,9 @@ public class Empty implements Square{
         //TODO TO STRING
         return "";
     }
+
+    @Override
+    public boolean isEmpty() {
+        return true;
+    }
 }
