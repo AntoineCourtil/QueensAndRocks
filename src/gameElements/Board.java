@@ -2,6 +2,7 @@ package gameElements;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Vector;
 
 
 public class Board {
@@ -257,5 +258,24 @@ public class Board {
         return new Board(this.getGame(), this.getSize(), this.getNumberOfPieces(), this.getBoard().clone());
     }
 
+
+    /**
+     * Get toutes les solutions disponibles
+     * @return les successors
+     */
+    public ArrayList<Board> getSuccessors(){
+        ArrayList<Board> alsuccess = new ArrayList<>();
+        for (int i = 0; i < getSize(); i++) {
+            for (int j = 0; j < getSize(); j++) {
+                if (isAccessible(i, j)) {
+                    Board b_clone = clone();
+                    b_clone.placeQueen(i,j);
+                    alsuccess.add(b_clone);
+                }
+            }
+        }
+
+        return alsuccess;
+    }
 
 }
