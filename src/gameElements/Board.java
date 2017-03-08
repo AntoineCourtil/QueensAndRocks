@@ -197,6 +197,10 @@ public class Board {
         return null;
     }
 
+    public boolean isSolution(){
+        return numberOfQueens()==getSize();
+    }
+
 
     //------------TP3----------------------
     public boolean isAccessible2(int i, int j, Player currentPlayer) {
