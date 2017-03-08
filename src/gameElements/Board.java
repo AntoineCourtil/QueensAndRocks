@@ -119,18 +119,18 @@ public class Board {
         int k = 0;
         while (k < getSize() && ok) {
             //LIGNE
-            if (getSquare(k, 0).isEmpty()) ok = false;
+            if (!getSquare(k, j).isEmpty()) ok = false;
             //COLONNE
-            if (getSquare(0, k).isEmpty()) ok = false;
+            if (!getSquare(i, k).isEmpty()) ok = false;
             //DIAGO
-            if((i+1 < getSize()) && (j-1 >= 0))
-                if(getSquare(i+1, j-1).isEmpty()) ok = false;
-            if((i+1 < getSize()) && (j+1 < getSize()))
-                if(getSquare(i+1, j+1).isEmpty()) ok = false;
-            if((i-1 >= 0) && (j+1 < getSize()))
-                if(getSquare(i-1, j+1).isEmpty()) ok = false;
-            if((i-1 >= 0) && (j-1 >= 0))
-                if(getSquare(i-1, j-1).isEmpty()) ok = false;
+            if((i+k < getSize()) && (j-k >= 0))
+                if(!getSquare(i+k, j-k).isEmpty()) ok = false;
+            if((i+k < getSize()) && (j+k < getSize()))
+                if(!getSquare(i+k, j+k).isEmpty()) ok = false;
+            if((i-k >= 0) && (j+k < getSize()))
+                if(!getSquare(i-k, j+k).isEmpty()) ok = false;
+            if((i-k >= 0) && (j-k >= 0))
+                if(!getSquare(i-k, j-k).isEmpty()) ok = false;
             k++;
         }
         return ok;

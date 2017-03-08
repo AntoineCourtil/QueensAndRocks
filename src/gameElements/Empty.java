@@ -24,7 +24,7 @@ public class Empty implements Square{
 
     public String toString(){
         //TODO TO STRING
-        return " ";
+        return "E";
     }
 
     @Override
