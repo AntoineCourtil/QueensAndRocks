@@ -29,7 +29,7 @@ public class Main {
 
     	//board.setPiece(0, 5, new Rock(p10));
     	//board.setPiece(1, 6, new Rock(p11));
-		System.out.println(board.toString());
+		System.out.println(board.toStringAccess());
 
 		GameUI gui = new GameUI(board);
         gui.launch();

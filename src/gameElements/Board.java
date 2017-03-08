@@ -123,70 +123,70 @@ public class Board {
             //COLONNE
             if (!getSquare(i, k).isEmpty()) ok = false;
             //DIAGO
-            if((i+k < getSize()) && (j-k >= 0))
-                if(!getSquare(i+k, j-k).isEmpty()) ok = false;
-            if((i+k < getSize()) && (j+k < getSize()))
-                if(!getSquare(i+k, j+k).isEmpty()) ok = false;
-            if((i-k >= 0) && (j+k < getSize()))
-                if(!getSquare(i-k, j+k).isEmpty()) ok = false;
-            if((i-k >= 0) && (j-k >= 0))
-                if(!getSquare(i-k, j-k).isEmpty()) ok = false;
+            if ((i + k < getSize()) && (j - k >= 0))
+                if (!getSquare(i + k, j - k).isEmpty()) ok = false;
+            if ((i + k < getSize()) && (j + k < getSize()))
+                if (!getSquare(i + k, j + k).isEmpty()) ok = false;
+            if ((i - k >= 0) && (j + k < getSize()))
+                if (!getSquare(i - k, j + k).isEmpty()) ok = false;
+            if ((i - k >= 0) && (j - k >= 0))
+                if (!getSquare(i - k, j - k).isEmpty()) ok = false;
             k++;
         }
         return ok;
     }
 
-    public String toStringAccess(){
+    public String toStringAccess() {
         String s = toString();
         StringBuilder strb = new StringBuilder(s.length());
-        for(int i = 0; i<getSize(); i++){
-            for(int j = 0; j<getSize(); j++){
-                if(isAccessible(i, j)){
+        for (int i = 0; i < getSize(); i++) {
+            for (int j = 0; j < getSize(); j++) {
+                if (isAccessible(i, j)) {
                     strb.append("O");
-                }else{
-                    strb.append(s.charAt(i+j));
+                } else {
+                    if (s.charAt(i + j) == '\n') strb.append(s.charAt(i + j+1));
+                    else strb.append(s.charAt(i + j));
                 }
             }
+            strb.append('\n');
         }
         return strb.toString();
     }
 
 
-
-
     public int numberOfAccessible() {
-    	int nbAccessible = 0;
-    	
-    	for (int i = 0; i < size; i++) {
+        int nbAccessible = 0;
+
+        for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if(this.isAccessible(i, j)){
-                	nbAccessible++;
+                if (this.isAccessible(i, j)) {
+                    nbAccessible++;
                 }
             }
         }
-    	
+
         return nbAccessible;
     }
 
     public int numberOfQueens() {
-    	int nbQueens = 0;
-    	
-    	for (int i = 0; i < size; i++) {
+        int nbQueens = 0;
+
+        for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-            	if(this.getPiece(i, j) instanceof Queen){
-            		nbQueens++;
-    			}
+                if (this.getPiece(i, j) instanceof Queen) {
+                    nbQueens++;
+                }
             }
         }
-    	
+
         return nbQueens;
     }
 
     public boolean placeQueen(int i, int j) {
-        if(this.isAccessible(i, j)){
-        	this.setPiece(i, j, new Queen(this.game.getPlayer0()));
-        	this.numberOfPieces++;
-        	return true;
+        if (this.isAccessible(i, j)) {
+            this.setPiece(i, j, new Queen(this.game.getPlayer0()));
+            this.numberOfPieces++;
+            return true;
         }
         return false;
     }
