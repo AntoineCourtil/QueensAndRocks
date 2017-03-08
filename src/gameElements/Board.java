@@ -145,7 +145,7 @@ public class Board {
                 if (isAccessible(i, j)) {
                     strb.append("O");
                 } else {
-                    if (s.charAt(i + j) == '\n') strb.append(s.charAt(i + j+1));
+                    if (s.charAt(i + j) == '\n') strb.append(s.charAt(i + j + 1));
                     else strb.append(s.charAt(i + j));
                 }
             }
@@ -198,8 +198,8 @@ public class Board {
         return null;
     }
 
-    public boolean isSolution(){
-        return numberOfQueens()==getSize();
+    public boolean isSolution() {
+        return numberOfQueens() == getSize();
     }
 
 
@@ -259,21 +259,48 @@ public class Board {
     }
 
     public Board clone() {
-        return new Board(this.getGame(), this.getSize(), this.getNumberOfPieces(), this.getBoard().clone());
+
+        //System.out.println("_____CLONE____________");
+
+        Square[][] boardCopy = new Square[getSize()][getSize()];
+
+        //System.arraycopy(this.getBoard(), 0, boardCopy, 0, getSize());
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                boardCopy[i][j] = board[i][j];
+            }
+        }
+
+        Board b = new Board(this.getGame(), this.getSize(), this.getNumberOfPieces(), boardCopy);
+
+        //System.out.println("++Copy Original++\n" + b.toString() + "\n+++\n");
+
+        //b.placeQueen(0,0);
+
+        /*System.out.println(toString());
+        System.out.println("----");
+        System.out.println(b.toString());
+
+
+        System.out.println("_____FIN CLONE____________");*/
+
+
+        return b;
     }
 
 
     /**
      * Get toutes les solutions disponibles
+     *
      * @return les successors
      */
-    public ArrayList<Board> getSuccessors(){
+    public ArrayList<Board> getSuccessors() {
         ArrayList<Board> alsuccess = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
             for (int j = 0; j < getSize(); j++) {
                 if (isAccessible(i, j)) {
                     Board b_clone = clone();
-                    b_clone.placeQueen(i,j);
+                    b_clone.placeQueen(i, j);
                     alsuccess.add(b_clone);
                 }
             }
