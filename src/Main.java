@@ -1,6 +1,8 @@
 import gameElements.*;
 import graphics.GameUI;
 
+import java.util.ArrayList;
+
 /**
  * Created by simon on 17/02/17.
  */
@@ -13,8 +15,10 @@ public class Main {
     	Player p00 = new Player(0);
     	Player p01 = new Player(1);
 
-    	board.setPiece(2, 2, new Queen(p00));
-    	board.setPiece(3, 5, new Queen(p01));
+		board.setPiece(2, 2, new Queen(p00));
+		board.setPiece(7, 0, new Queen(p00));
+		board.setPiece(3, 5, new Queen(p01));
+		board.setPiece(4, 7, new Queen(p01));
 
     	//board.setPiece(0, 3, new Rock(p00));
     	//board.setPiece(1, 3, new Rock(p01));
@@ -29,7 +33,15 @@ public class Main {
 
     	//board.setPiece(0, 5, new Rock(p10));
     	//board.setPiece(1, 6, new Rock(p11));
-		System.out.println(board.toStringAccess());
+		System.out.println("ORIGINAL");
+		System.out.println(board.toString());
+
+		ArrayList<Board> alb = board.getSuccessors();
+
+		for (Board bSuccessors : alb){
+			System.out.println("\n________SUCCESSORS_________\n");
+			System.out.println(bSuccessors.toString());
+		}
 
 		GameUI gui = new GameUI(board);
         gui.launch();
