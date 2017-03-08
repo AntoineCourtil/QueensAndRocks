@@ -282,4 +282,8 @@ public class Board {
         return alsuccess;
     }
 
+    public ArrayList<Board> depthFirstSearch(Board initialState){
+
+    }
+
 }
