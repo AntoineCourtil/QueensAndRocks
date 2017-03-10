@@ -268,7 +268,7 @@ public class Board {
 
         int j = numberOfQueens();
 
-        System.out.println(j);
+        //System.out.println(j);
 
         for (int i = 0; i < getSize(); i++) {
             if (isAccessible(i, j)) {

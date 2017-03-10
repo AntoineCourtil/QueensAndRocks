@@ -25,13 +25,35 @@ public class Main {
         long start_time = new Date().getTime();
         board.depthFirstSearch(board);
         long end_time = new Date().getTime();
-        System.out.println("--------------------EXECUTION TIME (sizeof board : "+taille_board+") -----------------");
+        System.out.println("--------------------V1 : EXECUTION TIME (sizeof board : "+taille_board+") -----------------");
         long execution_time = end_time - start_time;
 
         //System.out.println(start_time);
         //System.out.println(end_time);
         System.out.println(execution_time + " ms ("+execution_time/1000+" s)");
-        System.out.println("----------------------FIN TEST TIME----------------------------");
+        System.out.println("----------------------FIN V1 TEST TIME----------------------------");
+
+        start_time = new Date().getTime();
+        board.depthFirstSearch2(board);
+        end_time = new Date().getTime();
+        System.out.println("--------------------V2 : EXECUTION TIME (sizeof board : "+taille_board+") -----------------");
+        execution_time = end_time - start_time;
+
+        //System.out.println(start_time);
+        //System.out.println(end_time);
+        System.out.println(execution_time + " ms ("+execution_time/1000+" s)");
+        System.out.println("----------------------FIN V2 TEST TIME----------------------------");
+
+        start_time = new Date().getTime();
+        board.depthFirstSearchArray();
+        end_time = new Date().getTime();
+        System.out.println("--------------------V_ARRAY : EXECUTION TIME (sizeof board : "+taille_board+") -----------------");
+        execution_time = end_time - start_time;
+
+        //System.out.println(start_time);
+        //System.out.println(end_time);
+        System.out.println(execution_time + " ms ("+execution_time/1000+" s)");
+        System.out.println("----------------------FIN V_ARRAY TEST TIME----------------------------");
     }
 
     public static void test_diffent_time(){
@@ -40,6 +62,10 @@ public class Main {
         test_time(10);
         test_time(11);
         test_time(12);
+    }
+
+    public static void test_different_time_with_three_V(){
+
     }
 
     public static void main(String[] args) {
@@ -67,7 +93,7 @@ public class Main {
 
         //test_time(9);
 
-        //test_diffent_time();
+        test_diffent_time();
 
         GameUI gui = new GameUI(board);
         gui.launch();
