@@ -33,7 +33,7 @@ public class Board {
         this.board = board;
     }
 
-    public Board(int size_board){
+    public Board(int size_board) {
         this.game = new Game();
         this.size = size_board;
         this.numberOfPieces = 0;
@@ -214,32 +214,32 @@ public class Board {
 
     public ArrayList<Board> depthFirstSearch(Board b) {
         ArrayList<Board> successeurs = new ArrayList<>();
-        if(b.isSolution()){
+        if (b.isSolution()) {
             successeurs.add(b);
             //System.out.println("SOLUTION");
             return successeurs;
         }
-        for(Board b_s : b.getSuccessors()){
+        for (Board b_s : b.getSuccessors()) {
             //System.out.println(b.getSuccessors().size());
             ArrayList<Board> cheminDuSuccesseur = depthFirstSearch(b_s);
 
-            try{
-                if(cheminDuSuccesseur.size() == 0)
+            try {
+                if (cheminDuSuccesseur.size() == 0)
                     throw new NoSuchElementException();
 
-                for(Board cheminSuccess : cheminDuSuccesseur){
+                for (Board cheminSuccess : cheminDuSuccesseur) {
                     successeurs.add(cheminSuccess);
                 }
                 successeurs.add(b_s);
                 return successeurs;
-            }catch (NoSuchElementException e){
+            } catch (NoSuchElementException e) {
                 //e.printStackTrace();
             }
         }
         return successeurs;
     }
 
-    public String solutionSteps(Board b){
+    public String solutionSteps(Board b) {
         StringBuilder strb = new StringBuilder();
 
         ArrayList<Board> solution = depthFirstSearch2(b);
@@ -247,8 +247,8 @@ public class Board {
 
         int i = 0;
 
-        for(Board board : solution){
-            strb.append("\n\n________ ETAPE "+i+" ________\n");
+        for (Board board : solution) {
+            strb.append("\n\n________ ETAPE " + i + " ________\n");
 
             strb.append(board.toString());
             i++;
@@ -268,7 +268,7 @@ public class Board {
 
         int j = numberOfQueens();
 
-        //System.out.println(j);
+        System.out.println(j);
 
         for (int i = 0; i < getSize(); i++) {
             if (isAccessible(i, j)) {
@@ -282,23 +282,24 @@ public class Board {
 
     public ArrayList<Board> depthFirstSearch2(Board b) {
         ArrayList<Board> successeurs = new ArrayList<>();
-        if(b.isSolution()){
+        System.out.println("a");
+        if (b.isSolution()) {
             successeurs.add(b);
             return successeurs;
         }
-        for(Board b_s : b.getNewSuccessors()){
+        for (Board b_s : b.getNewSuccessors()) {
             ArrayList<Board> cheminDuSuccesseur = depthFirstSearch2(b_s);
 
-            try{
-                if(cheminDuSuccesseur.size() == 0)
+            try {
+                if (cheminDuSuccesseur.size() == 0)
                     throw new NoSuchElementException();
 
-                for(Board cheminSuccess : cheminDuSuccesseur){
+                for (Board cheminSuccess : cheminDuSuccesseur) {
                     successeurs.add(cheminSuccess);
                 }
                 successeurs.add(b_s);
                 return successeurs;
-            }catch (NoSuchElementException e){
+            } catch (NoSuchElementException e) {
                 //e.printStackTrace();
             }
         }
@@ -414,34 +415,35 @@ public class Board {
     /**
      * Convertit un board en un tableau unidimen (voir td+cours)
      * Note que les lignes ou sont positionnées les queens -1 si pas de queen sur la colonne
+     *
      * @return
      */
-    public int[] boardToArray(){
+    public int[] boardToArray() {
         int[] array_board = new int[getSize()];
         boolean queen_dans_la_ligne;
         for (int i = 0; i < getSize(); i++) {
             queen_dans_la_ligne = false;
             for (int j = 0; j < getSize(); j++) {
-                if(getPiece(i,j) instanceof Queen){
+                if (getPiece(i, j) instanceof Queen) {
                     queen_dans_la_ligne = true;
                     array_board[i] = j;
                     break;//On sort de la boucle car 1 seule queen dans chaque lignes
                 }
             }
-            if(!queen_dans_la_ligne) array_board[i] = -1;
+            if (!queen_dans_la_ligne) array_board[i] = -1;
         }
-        return  array_board;
+        return array_board;
     }
 
     /**
      * Opération inverse de board to array
      */
-    public Board arrayToBoard(int[] array_board){
+    public Board arrayToBoard(int[] array_board) {
         Board b = new Board(array_board.length);
 
-        for(int i = 0; i<array_board.length; i++){
-            if(array_board[i] != -1){
-                b.placeQueen(i,array_board[i]);
+        for (int i = 0; i < array_board.length; i++) {
+            if (array_board[i] != -1) {
+                b.placeQueen(i, array_board[i]);
             }
         }
         return b;
@@ -450,16 +452,17 @@ public class Board {
     /**
      * A voir si c'est bien comme cela qu'il faut faire car je reconverti en board pour pouvoir
      * utiliser isAccessible
+     *
      * @param array
      * @return
      */
-    public ArrayList<int[]> getArraySuccessors(int[] array){
+    public ArrayList<int[]> getArraySuccessors(int[] array) {
         ArrayList<int[]> alsuccess = new ArrayList<>();
         Board b = arrayToBoard(array);
-        for(int i = 0; i<array.length; i++ ){
-            for (int j = 0; j<array.length; j++){
-                if(b.isAccessible(i,j)){
-                    int [] tab = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length; j++) {
+                if (b.isAccessible(i, j)) {
+                    int[] tab = new int[array.length];
                     System.arraycopy(array, 0, tab, 0, array.length);
                     tab[i] = j;//Placemement de la reine
                     alsuccess.add(tab);
@@ -471,49 +474,49 @@ public class Board {
 
     /**
      * Normalement il doit y avoir une reine par ligne pour que ce soit une solution
+     *
      * @param array
      * @return
      */
-    public boolean isSolutionArray(int[] array){
+    public boolean isSolutionArray(int[] array) {
         boolean solution = true;
-        for(int ligne: array){
-            if(ligne == -1) solution = false;
+        for (int ligne : array) {
+            if (ligne == -1) solution = false;
         }
         return solution;
     }
 
-    public ArrayList<int[]> depthFirstSearchArray(int[] initialState){
+    public ArrayList<int[]> depthFirstSearchArray(int[] initialState) {
         ArrayList<int[]> successeurs = new ArrayList<>();
 
-        if(isSolutionArray(initialState)){
+        if (isSolutionArray(initialState)) {
             successeurs.add(initialState);
             return successeurs;
         }
-        for (int[] b_s : getArraySuccessors(initialState)){
+        for (int[] b_s : getArraySuccessors(initialState)) {
             ArrayList<int[]> chemin_successeur = depthFirstSearchArray(b_s);
 
-            try{
-                if(chemin_successeur.size() == 0)
+            try {
+                if (chemin_successeur.size() == 0)
                     throw new NoSuchElementException();
 
-                for(int[] cheminSuccess : chemin_successeur){
+                for (int[] cheminSuccess : chemin_successeur) {
                     successeurs.add(cheminSuccess);
                 }
                 successeurs.add(b_s);
                 return successeurs;
-            }catch (NoSuchElementException e){
+            } catch (NoSuchElementException e) {
 
             }
         }
         return successeurs;
     }
-    
 
-    public ArrayList<int[]> depthFirstSearchArray(){
+
+    public ArrayList<int[]> depthFirstSearchArray() {
         int[] initialState = boardToArray();
         return depthFirstSearchArray(initialState);
     }
-
 
 
 }
