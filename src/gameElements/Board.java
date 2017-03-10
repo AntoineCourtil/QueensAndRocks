@@ -33,6 +33,22 @@ public class Board {
         this.board = board;
     }
 
+    public Board(int size_board){
+        this.game = new Game();
+        this.size = size_board;
+        this.numberOfPieces = 0;
+
+        Square[][] board = new Square[size_board][size_board];
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                board[i][j] = this.game.getEmpty();
+            }
+        }
+
+        this.board = board;
+    }
+
 
     public Board(Game game, int size, int numberOfPieces, Square[][] board) {
         this.game = game;
