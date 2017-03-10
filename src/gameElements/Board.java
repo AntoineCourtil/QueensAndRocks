@@ -2,6 +2,7 @@ package gameElements;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.NoSuchElementException;
 import java.util.Vector;
 
 
@@ -193,10 +194,30 @@ public class Board {
     }
 
     //----------TP2-----------------------
+
+
     public ArrayList<Board> depthFirstSearch(Board b) {
-        // TODO Auto-generated method stub
-        return null;
+        ArrayList<Board> successeurs = new ArrayList<>();
+        if(b.isSolution()){
+            successeurs.add(b);
+            return successeurs;
+        }
+        for(Board b_s : b.getSuccessors()){
+            ArrayList<Board> cheminDuSuccesseur = depthFirstSearch(b_s);
+
+            try{
+                for(Board cheminSuccess : cheminDuSuccesseur){
+                    successeurs.add(cheminSuccess);
+                }
+                successeurs.add(b_s);
+                return successeurs;
+            }catch (NoSuchElementException e){
+                e.printStackTrace();
+            }
+        }
+        throw new NoSuchElementException();
     }
+
 
     public boolean isSolution() {
         return numberOfQueens() == getSize();
@@ -305,12 +326,8 @@ public class Board {
                 }
             }
         }
-
         return alsuccess;
     }
 
-    public ArrayList<Board> depthFirstSearch(Board initialState){
-
-    }
 
 }
