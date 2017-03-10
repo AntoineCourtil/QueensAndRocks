@@ -200,22 +200,46 @@ public class Board {
         ArrayList<Board> successeurs = new ArrayList<>();
         if(b.isSolution()){
             successeurs.add(b);
+            //System.out.println("SOLUTION");
             return successeurs;
         }
         for(Board b_s : b.getSuccessors()){
+            //System.out.println(b.getSuccessors().size());
             ArrayList<Board> cheminDuSuccesseur = depthFirstSearch(b_s);
 
             try{
+                if(cheminDuSuccesseur.size() == 0)
+                    throw new NoSuchElementException();
+
                 for(Board cheminSuccess : cheminDuSuccesseur){
                     successeurs.add(cheminSuccess);
                 }
                 successeurs.add(b_s);
                 return successeurs;
             }catch (NoSuchElementException e){
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
-        throw new NoSuchElementException();
+        return successeurs;
+    }
+
+    public String solutionSteps(Board b){
+        StringBuilder strb = new StringBuilder();
+
+        ArrayList<Board> solution = depthFirstSearch(b);
+        Collections.reverse(solution);
+
+        int i = 0;
+
+        for(Board board : solution){
+            strb.append("\n\n________ ETAPE "+i+" ________\n");
+
+            strb.append(board.toString());
+            i++;
+        }
+
+        strb.append("\n");
+        return strb.toString();
     }
 
 
