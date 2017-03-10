@@ -242,7 +242,7 @@ public class Board {
     public String solutionSteps(Board b){
         StringBuilder strb = new StringBuilder();
 
-        ArrayList<Board> solution = depthFirstSearch(b);
+        ArrayList<Board> solution = depthFirstSearch2(b);
         Collections.reverse(solution);
 
         int i = 0;
@@ -261,6 +261,48 @@ public class Board {
 
     public boolean isSolution() {
         return numberOfQueens() == getSize();
+    }
+
+    public ArrayList<Board> getNewSuccessors() {
+        ArrayList<Board> alsuccess = new ArrayList<>();
+
+        int j = numberOfQueens();
+
+        System.out.println(j);
+
+        for (int i = 0; i < getSize(); i++) {
+            if (isAccessible(i, j)) {
+                Board b_clone = clone();
+                b_clone.placeQueen(i, j);
+                alsuccess.add(b_clone);
+            }
+        }
+        return alsuccess;
+    }
+
+    public ArrayList<Board> depthFirstSearch2(Board b) {
+        ArrayList<Board> successeurs = new ArrayList<>();
+        if(b.isSolution()){
+            successeurs.add(b);
+            return successeurs;
+        }
+        for(Board b_s : b.getNewSuccessors()){
+            ArrayList<Board> cheminDuSuccesseur = depthFirstSearch2(b_s);
+
+            try{
+                if(cheminDuSuccesseur.size() == 0)
+                    throw new NoSuchElementException();
+
+                for(Board cheminSuccess : cheminDuSuccesseur){
+                    successeurs.add(cheminSuccess);
+                }
+                successeurs.add(b_s);
+                return successeurs;
+            }catch (NoSuchElementException e){
+                //e.printStackTrace();
+            }
+        }
+        return successeurs;
     }
 
 
