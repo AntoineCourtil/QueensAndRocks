@@ -369,5 +369,109 @@ public class Board {
         return alsuccess;
     }
 
+    /**
+     * Convertit un board en un tableau unidimen (voir td+cours)
+     * Note que les lignes ou sont positionnées les queens -1 si pas de queen sur la colonne
+     * @return
+     */
+    public int[] boardToArray(){
+        int[] array_board = new int[getSize()];
+        boolean queen_dans_la_ligne;
+        for (int i = 0; i < getSize(); i++) {
+            queen_dans_la_ligne = false;
+            for (int j = 0; j < getSize(); j++) {
+                if(getPiece(i,j) instanceof Queen){
+                    queen_dans_la_ligne = true;
+                    array_board[i] = j;
+                    break;//On sort de la boucle car 1 seule queen dans chaque lignes
+                }
+            }
+            if(!queen_dans_la_ligne) array_board[i] = -1;
+        }
+        return  array_board;
+    }
+
+    /**
+     * Opération inverse de board to array
+     */
+    public Board arrayToBoard(int[] array_board){
+        Board b = new Board(array_board.length);
+
+        for(int i = 0; i<array_board.length; i++){
+            if(array_board[i] != -1){
+                b.placeQueen(i,array_board[i]);
+            }
+        }
+        return b;
+    }
+
+    /**
+     * A voir si c'est bien comme cela qu'il faut faire car je reconverti en board pour pouvoir
+     * utiliser isAccessible
+     * @param array
+     * @return
+     */
+    public ArrayList<int[]> getArraySuccessors(int[] array){
+        ArrayList<int[]> alsuccess = new ArrayList<>();
+        Board b = arrayToBoard(array);
+        for(int i = 0; i<array.length; i++ ){
+            for (int j = 0; j<array.length; j++){
+                if(b.isAccessible(i,j)){
+                    int [] tab = new int[array.length];
+                    System.arraycopy(array, 0, tab, 0, array.length);
+                    tab[i] = j;//Placemement de la reine
+                    alsuccess.add(tab);
+                }
+            }
+        }
+        return alsuccess;
+    }
+
+    /**
+     * Normalement il doit y avoir une reine par ligne pour que ce soit une solution
+     * @param array
+     * @return
+     */
+    public boolean isSolutionArray(int[] array){
+        boolean solution = true;
+        for(int ligne: array){
+            if(ligne == -1) solution = false;
+        }
+        return solution;
+    }
+
+    public ArrayList<int[]> depthFirstSearchArray(int[] initialState){
+        ArrayList<int[]> successeurs = new ArrayList<>();
+
+        if(isSolutionArray(initialState)){
+            successeurs.add(initialState);
+            return successeurs;
+        }
+        for (int[] b_s : getArraySuccessors(initialState)){
+            ArrayList<int[]> chemin_successeur = depthFirstSearchArray(b_s);
+
+            try{
+                if(chemin_successeur.size() == 0)
+                    throw new NoSuchElementException();
+
+                for(int[] cheminSuccess : chemin_successeur){
+                    successeurs.add(cheminSuccess);
+                }
+                successeurs.add(b_s);
+                return successeurs;
+            }catch (NoSuchElementException e){
+
+            }
+        }
+        return successeurs;
+    }
+    
+
+    public ArrayList<int[]> depthFirstSearchArray(){
+        int[] initialState = boardToArray();
+        return depthFirstSearchArray(initialState);
+    }
+
+
 
 }

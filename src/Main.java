@@ -6,6 +6,7 @@ import java.util.ArrayList;
 /**
  * Created by simon on 17/02/17.
  */
+import java.util.Arrays;
 import java.util.Date;
 
 
@@ -49,14 +50,24 @@ public class Main {
         Player p00 = new Player(0);
         Player p01 = new Player(1);
 
-        board.setPiece(0, 0, new Queen(p00));
+        board.setPiece(0, 1, new Queen(p00));
         System.out.println(board.solutionSteps(board));
+
+
+        //TEST BOARD TO ARRAY OK
+        int[] a = board.boardToArray();
+        System.out.println(Arrays.toString(a));
+
+        //TEST ARRAY TO BOARD OK
+        Board res = board.arrayToBoard(a);
+        System.out.println(res.toString());
+
 
         //ArrayList<Board> alb = board.getSuccessors();
 
         //test_time(9);
 
-        test_diffent_time();
+        //test_diffent_time();
 
         GameUI gui = new GameUI(board);
         gui.launch();
