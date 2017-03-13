@@ -81,8 +81,9 @@ public class Main {
         Player p00 = new Player(0);
         Player p01 = new Player(1);
 
-        board.setPiece(0, 1, new Queen(p00));
+        board.setPiece(0, 0, new Queen(p00));
         System.out.println(board.solutionSteps(board));
+
 
 
         //TEST BOARD TO ARRAY OK
@@ -98,7 +99,7 @@ public class Main {
 
         //test_time(9);
 
-        test_diffent_time();
+        //test_diffent_time();
 
         GameUI gui = new GameUI(board);
         gui.launch();
