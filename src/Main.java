@@ -33,6 +33,8 @@ public class Main {
         System.out.println(execution_time + " ms ("+execution_time/1000+" s)");
         System.out.println("----------------------FIN V1 TEST TIME----------------------------");
 
+        board = new Board(taille_board);
+        board.setPiece(0, 0, new Queen(p00));
         start_time = new Date().getTime();
         board.depthFirstSearch2(board);
         end_time = new Date().getTime();
@@ -43,6 +45,9 @@ public class Main {
         //System.out.println(end_time);
         System.out.println(execution_time + " ms ("+execution_time/1000+" s)");
         System.out.println("----------------------FIN V2 TEST TIME----------------------------");
+
+        board = new Board(taille_board);
+        board.setPiece(0, 0, new Queen(p00));
 
         start_time = new Date().getTime();
         board.depthFirstSearchArray();
