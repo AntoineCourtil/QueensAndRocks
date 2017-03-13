@@ -268,7 +268,7 @@ public class Board {
 
         int j = numberOfQueens();
 
-        System.out.println(j);
+        //System.out.println(j);
 
         for (int i = 0; i < getSize(); i++) {
             if (isAccessible(i, j)) {
@@ -282,7 +282,7 @@ public class Board {
 
     public ArrayList<Board> depthFirstSearch2(Board b) {
         ArrayList<Board> successeurs = new ArrayList<>();
-        System.out.println("a");
+        //System.out.println("a");
         if (b.isSolution()) {
             successeurs.add(b);
             return successeurs;
@@ -460,12 +460,40 @@ public class Board {
         ArrayList<int[]> alsuccess = new ArrayList<>();
         Board b = arrayToBoard(array);
 
-        for (Board bSuccess : b.getNewSuccessors()){
-            alsuccess.add(bSuccess.boardToArray());
+        for (int i = 0; i < getSize(); i++) {
+            if (array[i] == -1) {
+                for (int j = 0; j < getSize(); j++) {
+                    if (b.isAccessible(i, j)) {
+                        int[] tmp = array.clone();
+                        tmp[i] = j;
+                        alsuccess.add(tmp);
+                    }
+                }
+            }
         }
 
         return alsuccess;
     }
+
+    /*public boolean isAccessibleArray(int[] array, int col, int line) {
+        for (int i = 0; i < getSize(); i++) {
+            if (array[i] == line)
+                return false;
+
+            if (col - i >= 0) {
+                if (array[col - i] == line + i || array[col - i] == line - i) {
+                    return false;
+                }
+            }
+
+            if (col + i < getSize()) {
+                if (array[col + i] == line - i || array[col + i] == line + i) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }*/
 
     /**
      * Normalement il doit y avoir une reine par ligne pour que ce soit une solution

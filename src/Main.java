@@ -77,24 +77,24 @@ public class Main {
         Player p01 = new Player(1);
 
         board.setPiece(0, 0, new Queen(p00));
-        System.out.println(board.solutionSteps(board));
+        //System.out.println(board.solutionSteps(board));
 
 
 
         //TEST BOARD TO ARRAY OK
         int[] a = board.boardToArray();
-        System.out.println(Arrays.toString(a));
+        //System.out.println(Arrays.toString(a));
 
         //TEST ARRAY TO BOARD OK
         Board res = board.arrayToBoard(a);
-        System.out.println(res.toString());
+        //System.out.println(res.toString());
 
 
         //ArrayList<Board> alb = board.getSuccessors();
 
         //test_time(9);
 
-        //test_diffent_time();
+        test_diffent_time();
 
         GameUI gui = new GameUI(board);
         gui.launch();
