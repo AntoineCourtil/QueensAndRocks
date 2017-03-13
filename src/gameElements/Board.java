@@ -459,16 +459,11 @@ public class Board {
     public ArrayList<int[]> getArraySuccessors(int[] array) {
         ArrayList<int[]> alsuccess = new ArrayList<>();
         Board b = arrayToBoard(array);
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length; j++) {
-                if (b.isAccessible(i, j)) {
-                    int[] tab = new int[array.length];
-                    System.arraycopy(array, 0, tab, 0, array.length);
-                    tab[i] = j;//Placemement de la reine
-                    alsuccess.add(tab);
-                }
-            }
+
+        for (Board bSuccess : b.getNewSuccessors()){
+            alsuccess.add(bSuccess.boardToArray());
         }
+
         return alsuccess;
     }
 
