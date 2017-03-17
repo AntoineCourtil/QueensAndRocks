@@ -68,11 +68,23 @@ public class Main {
 
     }
 
-    public static void playWithoutGUI() {
+    /**
+     *
+     * @param firstRock
+     *
+     * Si firstRock = true, alors le premier coup doit etre un Rock
+     */
+
+    public static void playWithoutGUI(boolean firstRock) {
+
+
+
         Board board = new Board(4);
 
         Player p0 = new Player(0);
         Player p1 = new Player(1);
+
+
         int tour = 0;
         boolean sonTour = true;
 
@@ -84,17 +96,17 @@ public class Main {
             sonTour = true;
 
             System.out.println("\n\n==== TOUR " + tour + " ====\n");
-            System.out.println("Tour de : Joueur "+pCourant.getNumber());
+            System.out.println("Tour de : Joueur " + pCourant.getNumber());
 
-            System.out.println("\nScore de Joueur "+p0.getNumber()+" : "+board.getScore(p0));
-            System.out.println("Score de Joueur "+p1.getNumber()+" : "+board.getScore(p1));
+            System.out.println("\nScore de Joueur " + p0.getNumber() + " : " + board.getScore(p0));
+            System.out.println("Score de Joueur " + p1.getNumber() + " : " + board.getScore(p1));
 
 
-            System.out.println("\n\n"+board.toStringAccess2(pCourant));
+            System.out.println("\n\n" + board.toStringAccess2(pCourant));
 
             Scanner scanner = new Scanner(System.in);
 
-            while(sonTour) {
+            while (sonTour) {
 
 
                 System.out.println("Veuillez saisir un coup :");
@@ -104,29 +116,28 @@ public class Main {
 
                 System.out.println(entree[0]);
 
-                if(entree.length == 3) {
+                if (entree.length == 3) {
 
                     int line = Integer.parseInt(entree[1]);
                     int col = Integer.parseInt(entree[2]);
 
 
-                    if (entree[0].equals("Q")) { //joueur courant joue une Queen
-                        if (board.isAccessible2(line, col, pCourant)) {
-                            board.placeQueen2(line, col, pCourant);
+                    if (entree[0].equals("Q") && (!firstRock && tour == 1)) { //joueur courant joue une Queen
+                        if (board.isAccessible2(line, col, pCourant) && board.placeQueen2(line, col, pCourant)) {
                             tour++;
                             sonTour = false;
-                            System.out.println("Queen placée en "+line+","+col);
+                            System.out.println("Queen placée en " + line + "," + col);
                         } else {
                             System.out.println("Case inacessible, rejouer\n");
                         }
                     }
 
                     if (entree[0].equals("R")) { //joueur courant joue un Rock
-                        if (board.isEmpty(line, col)) {
-                            board.placeRock2(line, col, pCourant);
+                        if (board.isEmpty(line, col) && board.placeRock2(line, col, pCourant)) {
+                            firstRock = false;
                             tour++;
                             sonTour = false;
-                            System.out.println("Rock placé en "+line+","+col);
+                            System.out.println("Rock placé en " + line + "," + col);
                         } else {
                             System.out.println("Case inacessible, rejouer\n");
                         }
@@ -135,18 +146,15 @@ public class Main {
                     if (entree[0].equals("Q") && entree[0].equals("R")) { //joueur courant joue autre chose
                         System.out.println("Coup non valide, rejouer\n");
                     }
-                }
-
-                else { //joueur courant joue mauvais coup
+                } else { //joueur courant joue mauvais coup
                     System.out.println("Coup non valide, rejouer\n");
                 }
             }
 
-            if(pCourant.getNumber() == p0.getNumber()){
+            if (pCourant.getNumber() == p0.getNumber()) {
                 pCourant = p1;
                 pGagnant = p0;
-            }
-            else{
+            } else {
                 pCourant = p0;
                 pGagnant = p1;
             }
@@ -156,11 +164,10 @@ public class Main {
         System.out.println("\n\n==== PARTIE TERMINEE ====");
 
 
-
-        System.out.println("Gagnant : Joueur "+pGagnant.getNumber());
-        System.out.println("Score : "+board.getScore(pGagnant));
-        System.out.println("Perdant : Joueur "+pCourant.getNumber());
-        System.out.println("Score : "+board.getScore(pCourant));
+        System.out.println("Gagnant : Joueur " + pGagnant.getNumber());
+        System.out.println("Score : " + board.getScore(pGagnant));
+        System.out.println("Perdant : Joueur " + pCourant.getNumber());
+        System.out.println("Score : " + board.getScore(pCourant));
 
     }
 
@@ -171,14 +178,6 @@ public class Main {
 
         Player p00 = new Player(0);
         Player p01 = new Player(1);
-
-        board.placeQueen2(0,0,p00);
-        board.placeRock2(0,1,p01);
-        board.placeQueen2(1,0,p00);
-
-        System.out.println(board.toStringAccess2(p00));
-        System.out.println("\n\n"+board.toStringAccess2(p01));
-        System.out.println("\n\n"+board.toString());
 
         //board.setPiece(0, 0, new Queen(p00));
         //System.out.println(board.solutionSteps(board));
@@ -199,7 +198,7 @@ public class Main {
 
         //test_diffent_time();
 
-        //playWithoutGUI();
+        playWithoutGUI(true);
 
         //GameUI gui = new GameUI(board);
         //gui.launch();

@@ -40,7 +40,7 @@ public class Board {
         this.game = new Game();
         this.size = size_board;
         this.numberOfPieces = 0;
-        rocksPlayer0 = rocksPlayer1 = 6;
+        rocksPlayer0 = rocksPlayer1 = 1;
 
         Square[][] board = new Square[size_board][size_board];
 
@@ -175,20 +175,25 @@ public class Board {
         return strb.toString();
     }
 
-    public String toStringAccess2(Player player){
-        String s = toString();
-        StringBuilder strb = new StringBuilder(s.length());
-        for (int i = 0; i < getSize(); i++) {
-            for (int j = 0; j < getSize(); j++) {
-                System.out.println(s.charAt(i + j) + " " + i + " " + j);
-                if (isAccessible2(i, j, player)) {
-                    strb.append("O");
-                } else {
-                    if (s.charAt(i + j) == '\n') strb.append(s.charAt(i + j + 1));
-                    else strb.append(s.charAt(i + j));
+    public String toStringAccess2(Player player) {
+        StringBuilder strb = new StringBuilder();
+        strb.append("  ");
+        for (int k = 0; k < size; k++) strb.append(k + " ");
+        strb.append("\n");
+        for (int i = 0; i < size; i++) {
+            strb.append(i+" ");
+            for (int j = 0; j < size; j++) {
+                if (isAccessible2(i, j, player))
+                    strb.append("A");
+                else {
+                    if (isEmpty(i, j))
+                        strb.append("X");
+                    else
+                        strb.append(getSquare(i, j).toString());
                 }
+                strb.append(" ");
             }
-            strb.append('\n');
+            strb.append("\n");
         }
         return strb.toString();
     }
@@ -208,7 +213,7 @@ public class Board {
         return nbAccessible;
     }
 
-    public int numberOfAccessible2(Player player){
+    public int numberOfAccessible2(Player player) {
         int nbAccessible = 0;
 
         for (int i = 0; i < size; i++) {
@@ -236,12 +241,12 @@ public class Board {
         return nbQueens;
     }
 
-    public int numberOfQueens2(Player player){
+    public int numberOfQueens2(Player player) {
         int nbQueens = 0;
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if ( (this.getPiece(i, j) instanceof Queen) && (!getPiece(i,j).isEnemyQueen(player))) {
+                if ((this.getPiece(i, j) instanceof Queen) && (!getPiece(i, j).isEnemyQueen(player))) {
                     nbQueens++;
                 }
             }
@@ -373,9 +378,10 @@ public class Board {
         boolean ok = true;
         boolean rock_S = false, rock_E = false, rock_NW = false,
                 rock_SW = false, rock_NE = false, rock_SE = false;
-        boolean queen_N = false,queen_W = false;
+        boolean queen_N = false, queen_W = false;
 
         //Si l'on veut poser sur une case non vide
+        if(getSquare(i, j) == null) return false;
         if (!getSquare(i, j).isEmpty()) return false;
 
         //TEST EN LIGNE
@@ -448,7 +454,7 @@ public class Board {
                 //Si c'est un rocher je le note il me protegera peut etre après
                 if (s instanceof Rock) rock_SE = true;
             }
-            if ((i - k >= 0) && (j + k < getSize())){
+            if ((i - k >= 0) && (j + k < getSize())) {
                 //Nord Est NE
                 s = getSquare(i - k, j + k);
                 //Si j'ai pas trouvé de cailloux qui me protège
@@ -458,7 +464,7 @@ public class Board {
                 //Si c'est un rocher je le note il me protegera peut etre après
                 if (s instanceof Rock) rock_NE = true;
             }
-            if ((i - k >= 0) && (j - k >= 0)){
+            if ((i - k >= 0) && (j - k >= 0)) {
                 //Nord Ouest NW
                 s = getSquare(i - k, j - k);
                 //Si j'ai pas trouvé de cailloux qui me protège
@@ -473,7 +479,7 @@ public class Board {
         }
 
         //C'est qu'on avait trouvé une reine mais pas de cailloux pour annuler
-        if(queen_N || queen_W){
+        if (queen_N || queen_W) {
             return false;
         }
         //Si on est a faux c'est que l'on ne peux pas poser
@@ -492,8 +498,8 @@ public class Board {
     }
 
     public boolean placeRock2(int i, int j, Player player) {
-        if(getPiece(i,j).isEmpty() && (getNumberOfRocksLeft(player)>0)){
-            this.setPiece(i,j, new Rock(player));
+        if (getPiece(i, j).isEmpty() && (getNumberOfRocksLeft(player) > 0)) {
+            this.setPiece(i, j, new Rock(player));
             this.useRock(player);
             return true;
         }
@@ -511,8 +517,8 @@ public class Board {
     public int getScore(Player player) {
         int score = 0;
 
-        score += numberOfQueens2(player)*5;
-        score += numberOfRocks2(player)*2;
+        score += numberOfQueens2(player) * 5;
+        score += numberOfRocks2(player) * 2;
 
         return score;
     }
@@ -530,16 +536,17 @@ public class Board {
     }
 
     public Square getSquare(int i, int j) {
-        //TODO VERIF
-        return board[i][j];
+        if (i < getSize()  || j < getSize())
+            return board[i][j];
+        return null;
     }
 
-    public int numberOfRocks2(Player player){
+    public int numberOfRocks2(Player player) {
         int nbRocks = 0;
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if ( (this.getPiece(i, j) instanceof Rock) && (getPiece(i,j).getPlayer().getNumber() == player.getNumber())) {
+                if ((this.getPiece(i, j) instanceof Rock) && (getPiece(i, j).getPlayer().getNumber() == player.getNumber())) {
                     nbRocks++;
                 }
             }
