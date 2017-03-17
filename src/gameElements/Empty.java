@@ -31,4 +31,9 @@ public class Empty implements Square{
     public boolean isEmpty() {
         return true;
     }
+
+    @Override
+    public boolean isEnemyQueen(Player p) {
+        return false;
+    }
 }

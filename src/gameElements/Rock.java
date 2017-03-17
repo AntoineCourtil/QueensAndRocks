@@ -31,4 +31,9 @@ public class Rock implements Square{
     public boolean isEmpty() {
         return false;
     }
+
+    @Override
+    public boolean isEnemyQueen(Player p) {
+        return false;
+    }
 }
