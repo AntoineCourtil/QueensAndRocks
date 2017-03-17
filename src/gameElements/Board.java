@@ -666,7 +666,8 @@ public class Board {
                         alsuccess.add(tmp);
                     }
                 }
-            }*/
+            }
+        }*/
 
         for (Board bSuccess : b.getNewSuccessors()) {
             alsuccess.add(bSuccess.boardToArray());
