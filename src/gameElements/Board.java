@@ -40,6 +40,7 @@ public class Board {
         this.game = new Game();
         this.size = size_board;
         this.numberOfPieces = 0;
+        rocksPlayer0 = rocksPlayer1 = 6;
 
         Square[][] board = new Square[size_board][size_board];
 
@@ -179,6 +180,7 @@ public class Board {
         StringBuilder strb = new StringBuilder(s.length());
         for (int i = 0; i < getSize(); i++) {
             for (int j = 0; j < getSize(); j++) {
+                System.out.println(s.charAt(i + j) + " " + i + " " + j);
                 if (isAccessible2(i, j, player)) {
                     strb.append("O");
                 } else {
@@ -483,6 +485,7 @@ public class Board {
         if (this.isAccessible2(i, j, player)) {
             this.setPiece(i, j, new Queen(player));
             this.numberOfPieces++;
+            //System.out.println("--------------------\n"+this.toStringAccess2(player)+"\n--------------------\n");
             return true;
         }
         return false;
@@ -490,8 +493,8 @@ public class Board {
 
     public boolean placeRock2(int i, int j, Player player) {
         if(getPiece(i,j).isEmpty() && (getNumberOfRocksLeft(player)>0)){
-            setPiece(i,j, new Rock(player));
-            useRock(player);
+            this.setPiece(i,j, new Rock(player));
+            this.useRock(player);
             return true;
         }
         return false;

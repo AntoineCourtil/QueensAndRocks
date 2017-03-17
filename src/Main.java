@@ -1,21 +1,16 @@
 import gameElements.*;
 import graphics.GameUI;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by simon on 17/02/17.
  */
-import java.util.Arrays;
-import java.util.Date;
-
-
-
 
 
 public class Main {
 
-    public static void test_time(int taille_board){
+    public static void test_time(int taille_board) {
         Board board = new Board(taille_board);
         Player p00 = new Player(0);
         Player p01 = new Player(1);
@@ -25,12 +20,12 @@ public class Main {
         long start_time = new Date().getTime();
         board.depthFirstSearch(board);
         long end_time = new Date().getTime();
-        System.out.println("--------------------V1 : EXECUTION TIME (sizeof board : "+taille_board+") -----------------");
+        System.out.println("--------------------V1 : EXECUTION TIME (sizeof board : " + taille_board + ") -----------------");
         long execution_time = end_time - start_time;
 
         //System.out.println(start_time);
         //System.out.println(end_time);
-        System.out.println(execution_time + " ms ("+execution_time/1000+" s)");
+        System.out.println(execution_time + " ms (" + execution_time / 1000 + " s)");
         System.out.println("----------------------FIN V1 TEST TIME----------------------------");
 
         board = new Board(taille_board);
@@ -38,12 +33,12 @@ public class Main {
         start_time = new Date().getTime();
         board.depthFirstSearch2(board);
         end_time = new Date().getTime();
-        System.out.println("--------------------V2 : EXECUTION TIME (sizeof board : "+taille_board+") -----------------");
+        System.out.println("--------------------V2 : EXECUTION TIME (sizeof board : " + taille_board + ") -----------------");
         execution_time = end_time - start_time;
 
         //System.out.println(start_time);
         //System.out.println(end_time);
-        System.out.println(execution_time + " ms ("+execution_time/1000+" s)");
+        System.out.println(execution_time + " ms (" + execution_time / 1000 + " s)");
         System.out.println("----------------------FIN V2 TEST TIME----------------------------");
 
         board = new Board(taille_board);
@@ -52,16 +47,16 @@ public class Main {
         start_time = new Date().getTime();
         board.depthFirstSearchArray();
         end_time = new Date().getTime();
-        System.out.println("--------------------V_ARRAY : EXECUTION TIME (sizeof board : "+taille_board+") -----------------");
+        System.out.println("--------------------V_ARRAY : EXECUTION TIME (sizeof board : " + taille_board + ") -----------------");
         execution_time = end_time - start_time;
 
         //System.out.println(start_time);
         //System.out.println(end_time);
-        System.out.println(execution_time + " ms ("+execution_time/1000+" s)");
+        System.out.println(execution_time + " ms (" + execution_time / 1000 + " s)");
         System.out.println("----------------------FIN V_ARRAY TEST TIME----------------------------");
     }
 
-    public static void test_diffent_time(){
+    public static void test_diffent_time() {
         test_time(8);
         test_time(9);
         test_time(10);
@@ -69,21 +64,124 @@ public class Main {
         test_time(12);
     }
 
-    public static void test_different_time_with_three_V(){
+    public static void test_different_time_with_three_V() {
+
+    }
+
+    public static void playWithoutGUI() {
+        Board board = new Board(4);
+
+        Player p0 = new Player(0);
+        Player p1 = new Player(1);
+        int tour = 0;
+        boolean sonTour = true;
+
+        Player pCourant = p0;
+        Player pGagnant = p0;
+
+        while (board.numberOfAccessible2(pCourant) > 0) {
+
+            sonTour = true;
+
+            System.out.println("\n\n==== TOUR " + tour + " ====\n");
+            System.out.println("Tour de : Joueur "+pCourant.getNumber());
+
+            System.out.println("\nScore de Joueur "+p0.getNumber()+" : "+board.getScore(p0));
+            System.out.println("Score de Joueur "+p1.getNumber()+" : "+board.getScore(p1));
+
+
+            System.out.println("\n\n"+board.toStringAccess2(pCourant));
+
+            Scanner scanner = new Scanner(System.in);
+
+            while(sonTour) {
+
+
+                System.out.println("Veuillez saisir un coup :");
+                System.out.println("Usage : Q/R line column");
+                String str = scanner.nextLine();
+                String[] entree = str.split(" ");
+
+                System.out.println(entree[0]);
+
+                if(entree.length == 3) {
+
+                    int line = Integer.parseInt(entree[1]);
+                    int col = Integer.parseInt(entree[2]);
+
+
+                    if (entree[0].equals("Q")) { //joueur courant joue une Queen
+                        if (board.isAccessible2(line, col, pCourant)) {
+                            board.placeQueen2(line, col, pCourant);
+                            tour++;
+                            sonTour = false;
+                            System.out.println("Queen placée en "+line+","+col);
+                        } else {
+                            System.out.println("Case inacessible, rejouer\n");
+                        }
+                    }
+
+                    if (entree[0].equals("R")) { //joueur courant joue un Rock
+                        if (board.isEmpty(line, col)) {
+                            board.placeRock2(line, col, pCourant);
+                            tour++;
+                            sonTour = false;
+                            System.out.println("Rock placé en "+line+","+col);
+                        } else {
+                            System.out.println("Case inacessible, rejouer\n");
+                        }
+                    }
+
+                    if (entree[0].equals("Q") && entree[0].equals("R")) { //joueur courant joue autre chose
+                        System.out.println("Coup non valide, rejouer\n");
+                    }
+                }
+
+                else { //joueur courant joue mauvais coup
+                    System.out.println("Coup non valide, rejouer\n");
+                }
+            }
+
+            if(pCourant.getNumber() == p0.getNumber()){
+                pCourant = p1;
+                pGagnant = p0;
+            }
+            else{
+                pCourant = p0;
+                pGagnant = p1;
+            }
+
+        }
+
+        System.out.println("\n\n==== PARTIE TERMINEE ====");
+
+
+
+        System.out.println("Gagnant : Joueur "+pGagnant.getNumber());
+        System.out.println("Score : "+board.getScore(pGagnant));
+        System.out.println("Perdant : Joueur "+pCourant.getNumber());
+        System.out.println("Score : "+board.getScore(pCourant));
 
     }
 
     public static void main(String[] args) {
 
 
-        Board board = new Board();
+        Board board = new Board(3);
 
         Player p00 = new Player(0);
         Player p01 = new Player(1);
 
+        board.placeQueen2(0,0,p00);
+        board.placeRock2(0,1,p01);
+        board.placeQueen2(1,0,p00);
+
+        System.out.println(board.toStringAccess2(p00));
+        System.out.println("\n\n"+board.toStringAccess2(p01));
+        System.out.println("\n\n"+board.toString());
+
         //board.setPiece(0, 0, new Queen(p00));
         //System.out.println(board.solutionSteps(board));
-
 
 
         //TEST BOARD TO ARRAY OK
@@ -99,10 +197,12 @@ public class Main {
 
         //test_time(9);
 
-        test_diffent_time();
+        //test_diffent_time();
 
-        GameUI gui = new GameUI(board);
-        gui.launch();
+        //playWithoutGUI();
+
+        //GameUI gui = new GameUI(board);
+        //gui.launch();
 
     }
 }
