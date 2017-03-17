@@ -31,4 +31,10 @@ public class Queen implements Square{
     public boolean isEmpty() {
         return false;
     }
+
+    @Override
+    public boolean isEnemyQueen(Player p) {
+        //Si c'est pas sa queen
+        return !(p.getNumber() == player.getNumber());
+    }
 }

@@ -33,6 +33,8 @@ public class Main {
         System.out.println(execution_time + " ms ("+execution_time/1000+" s)");
         System.out.println("----------------------FIN V1 TEST TIME----------------------------");
 
+        board = new Board(taille_board);
+        board.setPiece(0, 0, new Queen(p00));
         start_time = new Date().getTime();
         board.depthFirstSearch2(board);
         end_time = new Date().getTime();
@@ -43,6 +45,9 @@ public class Main {
         //System.out.println(end_time);
         System.out.println(execution_time + " ms ("+execution_time/1000+" s)");
         System.out.println("----------------------FIN V2 TEST TIME----------------------------");
+
+        board = new Board(taille_board);
+        board.setPiece(0, 0, new Queen(p00));
 
         start_time = new Date().getTime();
         board.depthFirstSearchArray();
@@ -76,17 +81,17 @@ public class Main {
         Player p00 = new Player(0);
         Player p01 = new Player(1);
 
-        board.setPiece(0, 0, new Queen(p00));
+        //board.setPiece(0, 0, new Queen(p00));
         //System.out.println(board.solutionSteps(board));
 
 
 
         //TEST BOARD TO ARRAY OK
-        int[] a = board.boardToArray();
+        //int[] a = board.boardToArray();
         //System.out.println(Arrays.toString(a));
 
         //TEST ARRAY TO BOARD OK
-        Board res = board.arrayToBoard(a);
+        //Board res = board.arrayToBoard(a);
         //System.out.println(res.toString());
 
 
@@ -94,7 +99,7 @@ public class Main {
 
         //test_time(9);
 
-        test_diffent_time();
+        //test_diffent_time();
 
         GameUI gui = new GameUI(board);
         gui.launch();

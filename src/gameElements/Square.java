@@ -13,4 +13,6 @@ public interface Square {
     public String toString();
 
     public boolean isEmpty();
+
+    public boolean isEnemyQueen(Player p);
 }
