@@ -655,28 +655,29 @@ public class Board {
      */
     public ArrayList<int[]> getArraySuccessors(int[] array) {
         ArrayList<int[]> alsuccess = new ArrayList<>();
-        Board b = arrayToBoard(array);
+        //Board b = arrayToBoard(array);
 
-        /*for (int i = 0; i < getSize(); i++) {
+        for (int i = 0; i < getSize(); i++) {
             if (array[i] == -1) {
                 for (int j = 0; j < getSize(); j++) {
-                    if (b.isAccessible(i, j)) {
+                    //if (b.isAccessible(i, j)) {
+                    if (isAccessibleArray(array, i, j)) {
                         int[] tmp = array.clone();
                         tmp[i] = j;
                         alsuccess.add(tmp);
                     }
                 }
             }
-        }*/
-
-        for (Board bSuccess : b.getNewSuccessors()) {
-            alsuccess.add(bSuccess.boardToArray());
         }
+
+        /*for (Board bSuccess : b.getNewSuccessors()) {
+            alsuccess.add(bSuccess.boardToArray());
+        }*/
 
         return alsuccess;
     }
 
-    /*public boolean isAccessibleArray(int[] array, int col, int line) {
+    public boolean isAccessibleArray(int[] array, int col, int line) {
         for (int i = 0; i < getSize(); i++) {
             if (array[i] == line)
                 return false;
@@ -694,7 +695,7 @@ public class Board {
             }
         }
         return true;
-    }*/
+    }
 
     /**
      * Normalement il doit y avoir une reine par ligne pour que ce soit une solution

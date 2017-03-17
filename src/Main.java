@@ -99,7 +99,7 @@ public class Main {
 
         //test_time(9);
 
-        //test_diffent_time();
+        test_diffent_time();
 
         GameUI gui = new GameUI(board);
         gui.launch();
