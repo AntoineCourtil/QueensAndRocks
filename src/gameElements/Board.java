@@ -518,7 +518,7 @@ public class Board {
         int score = 0;
 
         score += numberOfQueens2(player) * 5;
-        score += numberOfRocks2(player) * 0;
+        score += numberOfRocks2(player) * 2;
 
         return score;
     }
@@ -540,9 +540,6 @@ public class Board {
 
         for (Board successor : successeurs) {
             score = evaluation(successor, currentPlayer, minimaxDepth, evaluation, currentPlayer);
-            System.out.println(successor.toString());
-            System.out.println("Score : " + score);
-            System.out.println("____________________________");
             if (score >= score_max) {
                 e_sortie = successor;
                 score_max = score;
