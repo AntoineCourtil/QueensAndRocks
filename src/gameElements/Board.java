@@ -800,4 +800,74 @@ public class Board {
     }
 
 
+    public float evaluation(Board b, Player currentPlayer, int c, Eval e, Player playing) {
+        ArrayList<Board> successors = new ArrayList<>();
+        Board state = b;
+
+        if (b.isFinal()) {
+
+            //Partie nulle
+            if (!b.isSolution()) {
+                return 0;
+            }
+
+            //Partie gagnee
+            if (currentPlayer == playing) {
+                return Float.POSITIVE_INFINITY;
+            }
+
+            //Partie perdue
+            else {
+                return Float.NEGATIVE_INFINITY;
+            }
+
+        }
+
+        if (c == 0) {
+            return e.getEval(currentPlayer, b);
+        }
+
+        successors = b.getSuccessors();
+
+        //Joueur-Machine de jouer
+        if (currentPlayer == playing) {
+            float score_max = Float.NEGATIVE_INFINITY;
+
+            for(Board s : successors){
+                Player nextPlayer;
+                if(currentPlayer == b.getGame().getPlayer0()){
+                    nextPlayer = b.getGame().getPlayer1();
+                }
+                else{
+                    nextPlayer = b.getGame().getPlayer0();
+                }
+
+                score_max = Math.max(score_max, evaluation(s, nextPlayer, c-1, e, playing));
+            }
+            return score_max;
+        }
+
+        //Autre joueur de jouer
+        else{
+            float score_min = Float.POSITIVE_INFINITY;
+
+            for(Board s : successors){
+                Player nextPlayer;
+                if(currentPlayer == b.getGame().getPlayer0()){
+                    nextPlayer = b.getGame().getPlayer1();
+                }
+                else{
+                    nextPlayer = b.getGame().getPlayer0();
+                }
+
+                score_min = Math.min(score_min, evaluation(s, nextPlayer, c-1, e, playing));
+            }
+            return score_min;
+        }
+
+
+
+    }
+
+
 }
