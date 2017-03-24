@@ -85,8 +85,11 @@ public class Main {
         Player p1 = new Player(1);
 
 
+
         int tour = 0;
         boolean sonTour = true;
+
+
 
         Player pCourant = p0;
         Player pGagnant = p0;
@@ -122,10 +125,11 @@ public class Main {
                     int col = Integer.parseInt(entree[2]);
 
 
-                    if (entree[0].equals("Q") && (!firstRock && tour == 1)) { //joueur courant joue une Queen
+                    if (entree[0].equals("Q") && !firstRock) { //joueur courant joue une Queen
                         if (board.isAccessible2(line, col, pCourant) && board.placeQueen2(line, col, pCourant)) {
                             tour++;
                             sonTour = false;
+                            firstRock = false;
                             System.out.println("Queen placée en " + line + "," + col);
                         } else {
                             System.out.println("Case inacessible, rejouer\n");
@@ -221,11 +225,12 @@ public class Main {
                         int col = Integer.parseInt(entree[2]);
 
 
-                        if (entree[0].equals("Q") && (!firstRock && tour == 1)) { //joueur courant joue une Queen
+                        if (entree[0].equals("Q") && !firstRock ) { //joueur courant joue une Queen
                             if (board.isAccessible2(line, col, pCourant) && board.placeQueen2(line, col, pCourant)) {
                                 tour++;
                                 sonTour = false;
                                 System.out.println("Queen placée en " + line + "," + col);
+                                firstRock = false;
                             } else {
                                 System.out.println("Case inacessible, rejouer\n");
                             }
@@ -355,10 +360,10 @@ public class Main {
 
         //test_diffent_time();
 
-        //playWithoutGUI(true);
+        joueurVSordi(true);
 
-        GameUI gui = new GameUI(board);
-        gui.launch();
+        //GameUI gui = new GameUI(board);
+        //gui.launch();
 
     }
 }
