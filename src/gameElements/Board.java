@@ -526,13 +526,26 @@ public class Board {
 
     //----------------------TP4&5--------------------------
     public boolean isFinal() {
-        // TODO Auto-generated method stub
-        return false;
+        //Si on ne peux plus poser de reines (le nombre max est atteint) et si un des deux joueurs n'a plus de
+        //cailloux à poser
+        return isSolution() && ((getRocksPlayer0() == 0) || (getRocksPlayer1() == 0));
     }
 
     public Board minimax(Board b, Player currentPlayer, int minimaxDepth, Eval evaluation) {
-        // TODO Auto-generated method stub
-        return null;
+        //Ensemble des états possibles suite au coup du joueur-machine
+        ArrayList<Board> successeurs = getSuccessors2(currentPlayer);
+        float score_max = Float.NEGATIVE_INFINITY;//moins l'infini
+        float score;
+        Board e_sortie = new Board(getSize());// Etat indiquant qu'aucun coup n'est possible
+
+        for (Board successor: successeurs){
+            score = evaluation(b, currentPlayer, minimaxDepth, evaluation, currentPlayer);
+            if(score >= score_max){
+                e_sortie = successor;
+                score_max = score;
+            }
+        }
+        return e_sortie;
     }
 
     public Square getSquare(int i, int j) {
@@ -612,6 +625,21 @@ public class Board {
                 if (isAccessible(i, j)) {
                     Board b_clone = clone();
                     b_clone.placeQueen(i, j);
+                    alsuccess.add(b_clone);
+                }
+            }
+        }
+        return alsuccess;
+    }
+
+    //Renvoi les successors pour le player donné (c'est à son tour de jouer)
+    public ArrayList<Board> getSuccessors2(Player player){
+        ArrayList<Board> alsuccess = new ArrayList<>();
+        for (int i = 0; i < getSize(); i++) {
+            for (int j = 0; j < getSize(); j++) {
+                if (isAccessible2(i, j, player)) {
+                    Board b_clone = clone();
+                    b_clone.placeQueen2(i, j, player);
                     alsuccess.add(b_clone);
                 }
             }
