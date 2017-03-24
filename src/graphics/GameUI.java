@@ -364,7 +364,7 @@ public class GameUI {
 				break;
 			case 20:
 				//Ordi seul à deux
-				b= g.getB().minimax(g.getB(), g.getCurrentPlayer(), minimaxDepth, evaluation);
+				b= g.getB().minimax(g.getB(), g.getCurrentPlayer(), minimaxDepth, evaluation, false);
 				g.setB(b);
 				g.changePlayer();
 				g.getFrame().setContentPane(g.toButtons2());
@@ -398,7 +398,7 @@ public class GameUI {
 					}
 				}
 				else{
-					b= g.getB().minimax(g.getB(), g.getCurrentPlayer(), minimaxDepth, evaluation);
+					b= g.getB().minimax(g.getB(), g.getCurrentPlayer(), minimaxDepth, evaluation, false);
 					g.setB(b);
 					g.changePlayer();
 					g.getFrame().setContentPane(g.toButtons2());

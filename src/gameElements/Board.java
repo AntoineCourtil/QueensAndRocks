@@ -534,15 +534,15 @@ public class Board {
         return isSolution() && ((getRocksPlayer0() == 0) || (getRocksPlayer1() == 0));
     }
 
-    public Board minimax(Board b, Player currentPlayer, int minimaxDepth, Eval evaluation) {
+    public Board minimax(Board b, Player currentPlayer, int minimaxDepth, Eval evaluation, boolean onlyRock) {
         //Ensemble des états possibles suite au coup du joueur-machine
-        ArrayList<Board> successeurs = getSuccessors2(currentPlayer);
+        ArrayList<Board> successeurs = getSuccessors2(currentPlayer, onlyRock);
         float score_max = Float.NEGATIVE_INFINITY;//moins l'infini
         float score;
         Board e_sortie = new Board(getSize());// Etat indiquant qu'aucun coup n'est possible
 
         for (Board successor : successeurs) {
-            score = evaluation(successor, currentPlayer, minimaxDepth, evaluation, currentPlayer);
+            score = evaluation(successor, currentPlayer, minimaxDepth, evaluation, currentPlayer, onlyRock);
             if (score >= score_max) {
                 e_sortie = successor;
                 score_max = score;
@@ -637,11 +637,11 @@ public class Board {
     }
 
     //Renvoi les successors pour le player donné (c'est à son tour de jouer)
-    public ArrayList<Board> getSuccessors2(Player player) {
+    public ArrayList<Board> getSuccessors2(Player player, boolean onlyRock) {
         ArrayList<Board> alsuccess = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
             for (int j = 0; j < getSize(); j++) {
-                if (isAccessible2(i, j, player)) {
+                if (isAccessible2(i, j, player) && !onlyRock) {
                     Board b_clone = clone();
                     b_clone.placeQueen2(i, j, player);
                     alsuccess.add(b_clone);
@@ -811,11 +811,10 @@ public class Board {
     }
 
 
-    public float evaluation(Board b, Player currentPlayer, int c, Eval e, Player playing) {
+    public float evaluation(Board b, Player currentPlayer, int c, Eval e, Player playing, boolean onlyRock) {
         ArrayList<Board> successors = new ArrayList<>();
 
         if (b.isFinal()) {
-            System.out.println("----------------------------------");
 
             //Partie nulle
             if (!b.isSolution()) {
@@ -838,7 +837,7 @@ public class Board {
             return e.getEval(currentPlayer, b);
         }
 
-        successors = b.getSuccessors2(currentPlayer);
+        successors = b.getSuccessors2(currentPlayer, onlyRock);
 
         //Joueur-Machine de jouer
         if (currentPlayer == playing) {
@@ -853,7 +852,7 @@ public class Board {
 
             for (Board s : successors) {
 
-                score_max = Math.max(score_max, evaluation(s, nextPlayer, c - 1, e, playing));
+                score_max = Math.max(score_max, evaluation(s, nextPlayer, c - 1, e, playing, onlyRock));
             }
 
             return score_max;
@@ -872,7 +871,7 @@ public class Board {
 
             for (Board s : successors) {
 
-                score_min = Math.min(score_min, evaluation(s, nextPlayer, c - 1, e, playing));
+                score_min = Math.min(score_min, evaluation(s, nextPlayer, c - 1, e, playing, onlyRock));
 
             }
 

@@ -182,7 +182,7 @@ public class Main {
 
         System.out.println("Un joueur vs Ordinateur");
 
-        Board board = new Board(2);
+        Board board = new Board(3);
 
         Player p0 = new Player(0);
         Player pMachine = new Player(1);
@@ -210,7 +210,8 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
 
             if(pCourant.getNumber() == 1){
-                board = board.minimax(board, pMachine, 2, new Eval0());
+                board = board.minimax(board, pMachine, 2, new Eval0(), firstRock);
+                firstRock = false;
             }else {
                 while (sonTour) {
 
@@ -285,7 +286,7 @@ public class Main {
 
         System.out.println("Un joueur vs Ordinateur");
 
-        Board board = new Board(2);
+        Board board = new Board(3);
 
         Player p0 = new Player(0);
         Player pMachine = new Player(1);
@@ -301,6 +302,8 @@ public class Main {
 
             sonTour = true;
 
+            tour++;
+
             System.out.println("\n\n==== TOUR " + tour + " ====\n");
             System.out.println("Tour de : Joueur " + pCourant.getNumber());
 
@@ -312,10 +315,12 @@ public class Main {
 
 
             if(pCourant.getNumber() == 1){
-                board = board.minimax(board, pMachine, 2, new Eval0());
+                board = board.minimax(board, pMachine, 2, new Eval0(), firstRock);
             }else {
-                board = board.minimax(board, p0, 2, new Eval0());
+                board = board.minimax(board, p0, 2, new Eval0(), firstRock);
             }
+
+            firstRock = false;
 
             if (pCourant.getNumber() == p0.getNumber()) {
                 pCourant = pMachine;
@@ -324,6 +329,8 @@ public class Main {
                 pCourant = p0;
                 pGagnant = pMachine;
             }
+
+
 
         }
 
@@ -342,7 +349,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Board board = new Board(2);
+        Board board = new Board(4);
 
         Player p00 = new Player(0);
         Player p01 = new Player(1);
@@ -366,10 +373,10 @@ public class Main {
 
         //test_diffent_time();
 
-        MachineVSMachine(true);
+        //MachineVSMachine(true);
 
-        //GameUI gui = new GameUI(board);
-        //gui.launch();
+        GameUI gui = new GameUI(board);
+        gui.launch();
 
     }
 }
