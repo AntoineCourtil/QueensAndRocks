@@ -40,7 +40,7 @@ public class Board {
         this.game = new Game();
         this.size = size_board;
         this.numberOfPieces = 0;
-        rocksPlayer0 = rocksPlayer1 = 1;
+        rocksPlayer0 = rocksPlayer1 = 6;
 
         Square[][] board = new Square[size_board][size_board];
 
@@ -181,7 +181,7 @@ public class Board {
         for (int k = 0; k < size; k++) strb.append(k + " ");
         strb.append("\n");
         for (int i = 0; i < size; i++) {
-            strb.append(i+" ");
+            strb.append(i + " ");
             for (int j = 0; j < size; j++) {
                 if (isAccessible2(i, j, player))
                     strb.append("A");
@@ -381,7 +381,7 @@ public class Board {
         boolean queen_N = false, queen_W = false;
 
         //Si l'on veut poser sur une case non vide
-        if(getSquare(i, j) == null) return false;
+        if (getSquare(i, j) == null) return false;
         if (!getSquare(i, j).isEmpty()) return false;
 
         //TEST EN LIGNE
@@ -538,9 +538,11 @@ public class Board {
         float score;
         Board e_sortie = new Board(getSize());// Etat indiquant qu'aucun coup n'est possible
 
-        for (Board successor: successeurs){
+        for (Board successor : successeurs) {
             score = evaluation(b, currentPlayer, minimaxDepth, evaluation, currentPlayer);
-            if(score >= score_max){
+            System.out.println(successor.toString());
+            System.out.println("Score : " + score);
+            if (score >= score_max) {
                 e_sortie = successor;
                 score_max = score;
             }
@@ -549,7 +551,7 @@ public class Board {
     }
 
     public Square getSquare(int i, int j) {
-        if (i < getSize()  || j < getSize())
+        if (i < getSize() || j < getSize())
             return board[i][j];
         return null;
     }
@@ -627,13 +629,14 @@ public class Board {
                     b_clone.placeQueen(i, j);
                     alsuccess.add(b_clone);
                 }
+
             }
         }
         return alsuccess;
     }
 
     //Renvoi les successors pour le player donné (c'est à son tour de jouer)
-    public ArrayList<Board> getSuccessors2(Player player){
+    public ArrayList<Board> getSuccessors2(Player player) {
         ArrayList<Board> alsuccess = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
             for (int j = 0; j < getSize(); j++) {
@@ -641,6 +644,13 @@ public class Board {
                     Board b_clone = clone();
                     b_clone.placeQueen2(i, j, player);
                     alsuccess.add(b_clone);
+                }
+
+                if (isEmpty(i, j)) {
+                    Board b_clone2 = clone();
+                    if (b_clone2.placeRock2(i, j, player)) {
+                        alsuccess.add(b_clone2);
+                    }
                 }
             }
         }
@@ -833,38 +843,38 @@ public class Board {
         if (currentPlayer == playing) {
             float score_max = Float.NEGATIVE_INFINITY;
 
-            for(Board s : successors){
+            for (Board s : successors) {
                 Player nextPlayer;
-                if(currentPlayer == b.getGame().getPlayer0()){
+                if (currentPlayer == b.getGame().getPlayer0()) {
                     nextPlayer = b.getGame().getPlayer1();
-                }
-                else{
+                } else {
                     nextPlayer = b.getGame().getPlayer0();
                 }
 
-                score_max = Math.max(score_max, evaluation(s, nextPlayer, c-1, e, playing));
+                score_max = Math.max(score_max, evaluation(s, nextPlayer, c - 1, e, playing));
             }
             return score_max;
         }
 
         //Autre joueur de jouer
-        else{
+        else {
             float score_min = Float.POSITIVE_INFINITY;
 
-            for(Board s : successors){
+            for (Board s : successors) {
                 Player nextPlayer;
-                if(currentPlayer == b.getGame().getPlayer0()){
+                if (currentPlayer == b.getGame().getPlayer0()) {
                     nextPlayer = b.getGame().getPlayer1();
-                }
-                else{
+                } else {
                     nextPlayer = b.getGame().getPlayer0();
                 }
 
-                score_min = Math.min(score_min, evaluation(s, nextPlayer, c-1, e, playing));
+                System.out.println("SCORE MIN : " + score_min);
+                System.out.println("EVAL : " + evaluation(s, nextPlayer, c - 1, e, playing));
+
+                score_min = Math.min(score_min, evaluation(s, nextPlayer, c - 1, e, playing));
             }
             return score_min;
         }
-
 
 
     }

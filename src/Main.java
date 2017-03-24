@@ -331,7 +331,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Board board = new Board(3);
+        Board board = new Board(2);
 
         Player p00 = new Player(0);
         Player p01 = new Player(1);
@@ -355,10 +355,10 @@ public class Main {
 
         //test_diffent_time();
 
-        playWithoutGUI(true);
+        //playWithoutGUI(true);
 
-        //GameUI gui = new GameUI(board);
-        //gui.launch();
+        GameUI gui = new GameUI(board);
+        gui.launch();
 
     }
 }
