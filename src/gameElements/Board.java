@@ -539,9 +539,10 @@ public class Board {
         Board e_sortie = new Board(getSize());// Etat indiquant qu'aucun coup n'est possible
 
         for (Board successor : successeurs) {
-            score = evaluation(b, currentPlayer, minimaxDepth, evaluation, currentPlayer);
+            score = evaluation(successor, currentPlayer, minimaxDepth, evaluation, currentPlayer);
             System.out.println(successor.toString());
             System.out.println("Score : " + score);
+            System.out.println("____________________________");
             if (score >= score_max) {
                 e_sortie = successor;
                 score_max = score;
