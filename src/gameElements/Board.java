@@ -518,7 +518,7 @@ public class Board {
         int score = 0;
 
         score += numberOfQueens2(player) * 5;
-        score += numberOfRocks2(player) * 2;
+        score += numberOfRocks2(player) * 0;
 
         return score;
     }
@@ -812,9 +812,9 @@ public class Board {
 
     public float evaluation(Board b, Player currentPlayer, int c, Eval e, Player playing) {
         ArrayList<Board> successors = new ArrayList<>();
-        Board state = b;
 
         if (b.isFinal()) {
+            System.out.println("----------------------------------");
 
             //Partie nulle
             if (!b.isSolution()) {
@@ -837,22 +837,24 @@ public class Board {
             return e.getEval(currentPlayer, b);
         }
 
-        successors = b.getSuccessors();
+        successors = b.getSuccessors2(currentPlayer);
 
         //Joueur-Machine de jouer
         if (currentPlayer == playing) {
             float score_max = Float.NEGATIVE_INFINITY;
 
+            Player nextPlayer;
+            if (currentPlayer == b.getGame().getPlayer0()) {
+                nextPlayer = b.getGame().getPlayer1();
+            } else {
+                nextPlayer = b.getGame().getPlayer0();
+            }
+
             for (Board s : successors) {
-                Player nextPlayer;
-                if (currentPlayer == b.getGame().getPlayer0()) {
-                    nextPlayer = b.getGame().getPlayer1();
-                } else {
-                    nextPlayer = b.getGame().getPlayer0();
-                }
 
                 score_max = Math.max(score_max, evaluation(s, nextPlayer, c - 1, e, playing));
             }
+
             return score_max;
         }
 
@@ -860,19 +862,20 @@ public class Board {
         else {
             float score_min = Float.POSITIVE_INFINITY;
 
-            for (Board s : successors) {
-                Player nextPlayer;
-                if (currentPlayer == b.getGame().getPlayer0()) {
-                    nextPlayer = b.getGame().getPlayer1();
-                } else {
-                    nextPlayer = b.getGame().getPlayer0();
-                }
+            Player nextPlayer;
+            if (currentPlayer == b.getGame().getPlayer0()) {
+                nextPlayer = b.getGame().getPlayer1();
+            } else {
+                nextPlayer = b.getGame().getPlayer0();
+            }
 
-                System.out.println("SCORE MIN : " + score_min);
-                System.out.println("EVAL : " + evaluation(s, nextPlayer, c - 1, e, playing));
+            for (Board s : successors) {
 
                 score_min = Math.min(score_min, evaluation(s, nextPlayer, c - 1, e, playing));
+
             }
+
+
             return score_min;
         }
 
