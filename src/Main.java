@@ -79,7 +79,7 @@ public class Main {
 
 
 
-        Board board = new Board(4);
+        Board board = new Board(2);
 
         Player p0 = new Player(0);
         Player p1 = new Player(1);
@@ -94,7 +94,7 @@ public class Main {
         Player pCourant = p0;
         Player pGagnant = p0;
 
-        while (board.numberOfAccessible2(pCourant) > 0) {
+        while (!board.isFinal()) {
 
             sonTour = true;
 
@@ -167,6 +167,8 @@ public class Main {
 
         System.out.println("\n\n==== PARTIE TERMINEE ====");
 
+        System.out.println(board.toString());
+
 
         System.out.println("Gagnant : Joueur " + pGagnant.getNumber());
         System.out.println("Score : " + board.getScore(pGagnant));
@@ -192,7 +194,7 @@ public class Main {
         Player pCourant = p0;
         Player pGagnant = p0;
 
-        while (board.numberOfAccessible2(pCourant) > 0) {
+        while (!board.isFinal()) {
 
             sonTour = true;
 
@@ -268,6 +270,8 @@ public class Main {
 
         System.out.println("\n\n==== PARTIE TERMINEE ====");
 
+        System.out.println(board.toString());
+
 
         System.out.println("Gagnant : Joueur " + pGagnant.getNumber());
         System.out.println("Score : " + board.getScore(pGagnant));
@@ -293,7 +297,7 @@ public class Main {
         Player pCourant = p0;
         Player pGagnant = p0;
 
-        while (board.numberOfAccessible2(pCourant) > 0) {
+        while (!board.isFinal()) {
 
             sonTour = true;
 
@@ -324,6 +328,8 @@ public class Main {
         }
 
         System.out.println("\n\n==== PARTIE TERMINEE ====");
+
+        System.out.println(board.toString());
 
 
         System.out.println("Gagnant : Joueur " + pGagnant.getNumber());
@@ -360,7 +366,7 @@ public class Main {
 
         //test_diffent_time();
 
-        joueurVSordi(true);
+        MachineVSMachine(true);
 
         //GameUI gui = new GameUI(board);
         //gui.launch();

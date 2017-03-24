@@ -258,7 +258,6 @@ public class Board {
     public boolean placeQueen(int i, int j) {
         if (this.isAccessible(i, j)) {
             this.setPiece(i, j, new Queen(this.game.getPlayer0()));
-            this.numberOfPieces++;
             return true;
         }
         return false;
@@ -490,7 +489,6 @@ public class Board {
     public boolean placeQueen2(int i, int j, Player player) {
         if (this.isAccessible2(i, j, player)) {
             this.setPiece(i, j, new Queen(player));
-            this.numberOfPieces++;
             //System.out.println("--------------------\n"+this.toStringAccess2(player)+"\n--------------------\n");
             return true;
         }
@@ -528,6 +526,11 @@ public class Board {
     public boolean isFinal() {
         //Si on ne peux plus poser de reines (le nombre max est atteint) et si un des deux joueurs n'a plus de
         //cailloux à poser
+
+        if(numberOfPieces == size*size){
+            return true;
+        }
+
         return isSolution() && ((getRocksPlayer0() == 0) || (getRocksPlayer1() == 0));
     }
 
