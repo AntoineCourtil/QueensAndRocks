@@ -516,7 +516,7 @@ public class Board {
         int score = 0;
 
         score += numberOfQueens2(player) * 5;
-        score += numberOfRocks2(player) * 2;
+        score += numberOfRocks2(player) * 1;
 
         return score;
     }
@@ -880,6 +880,20 @@ public class Board {
         }
 
 
+    }
+
+    public boolean isCleared(){
+        boolean clear = true;
+
+        for(int i = 0; i< getSize(); i++){
+            for(int j = 0; j< getSize(); j++){
+                if(!isEmpty(i,j)){
+                    return false;
+                }
+            }
+        }
+
+        return clear;
     }
 
 

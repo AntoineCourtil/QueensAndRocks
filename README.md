@@ -1,4 +1,4 @@
-REPONSES AUX QUESTIONS DU TP3 :
+#REPONSES AUX QUESTIONS DU TP3 :
 
 Q1 :
     Que se passe-t-il pour des plateaux de toute petite taille (2,3,4)?
@@ -56,4 +56,55 @@ Q6 : Considérez l'ensemble des cases inaccessibles pour un joueur.
         Toutes les cases adjacentes à la reines ennemies même celle en diagonale.
         Les autres sont récupérables en posant un rocher.
 
-        
+
+#REPONSES AUX QUESTIONS DU TP4 :
+
+Q1 : queenValue = 20 >> rockValue = 2
+
+    sizeBoard : 3 && firstRock : false = 35 ms (0 s)
+    sizeBoard : 5 && firstRock : false = 487 ms (0 s)
+    sizeBoard : 7 && firstRock : false = 4916 ms (4 s)
+    
+    sizeBoard : 3 && firstRock : true = 4 ms (0 s)
+    sizeBoard : 5 && firstRock : true = 234 ms (0 s)
+    sizeBoard : 7 && firstRock : true = 3798 ms (3 s)
+    
+Q2 : queenValue = 3 >> rockValue = 1
+    
+    sizeBoard : 3 && firstRock : false = 40 ms (0 s)
+    sizeBoard : 5 && firstRock : false = 601 ms (0 s)
+    sizeBoard : 7 && firstRock : false = 5063 ms (5 s)
+    
+    sizeBoard : 3 && firstRock : true = 3 ms (0 s)
+    sizeBoard : 5 && firstRock : true = 261 ms (0 s)
+    sizeBoard : 7 && firstRock : true = 4065 ms (4 s)
+    
+Q3 : queenValue = 1 = rockValue = 1
+    
+    sizeBoard : 3 && firstRock : false = 32 ms (0 s)
+    sizeBoard : 5 && firstRock : false = 794 ms (0 s)
+    sizeBoard : 7 && firstRock : false = 8098 ms (8 s)
+    
+    sizeBoard : 3 && firstRock : true = 4 ms (0 s)
+    sizeBoard : 5 && firstRock : true = 447 ms (0 s)
+    sizeBoard : 7 && firstRock : true = 7157 ms (7 s)
+    
+Q4 : queenValue = 1 < rockValue = 3
+    
+    sizeBoard : 3 && firstRock : false = 29 ms (0 s)
+    sizeBoard : 5 && firstRock : false = 728 ms (0 s)
+    sizeBoard : 7 && firstRock : false = 6834 ms (6 s)
+    
+    sizeBoard : 3 && firstRock : true = 4 ms (0 s)
+    sizeBoard : 5 && firstRock : true = 357 ms (0 s)
+    sizeBoard : 7 && firstRock : true = 5857 ms (5 s)
+    
+Q5 : rockValue = 0
+    
+    sizeBoard : 3 && firstRock : false = 35 ms (0 s)
+    sizeBoard : 5 && firstRock : false = 466 ms (0 s)
+    sizeBoard : 7 && firstRock : false = 5121 ms (5 s)
+    
+    sizeBoard : 3 && firstRock : true = 5 ms (0 s)
+    sizeBoard : 5 && firstRock : true = 279 ms (0 s)
+    sizeBoard : 7 && firstRock : true = 3910 ms (3 s)

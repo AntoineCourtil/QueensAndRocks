@@ -64,19 +64,30 @@ public class Main {
         test_time(12);
     }
 
-    public static void test_different_time_with_three_V() {
+    public static void testTimeMachine(int sizeBoard, boolean firstRock) {
+        long start_time = new Date().getTime();
+        MachineVSMachine(sizeBoard, firstRock);
+        long end_time = new Date().getTime();
+        System.out.println("-------------------- EXECUTION TIME (sizeBoard : " + sizeBoard + " | firstRock : " + firstRock + ") -----------------");
+        long execution_time = end_time - start_time;
+        System.out.println(execution_time + " ms (" + execution_time / 1000 + " s)\n\n");
+    }
 
+    public static void testDifferentTimeMachine() {
+        testTimeMachine(3, false);
+        testTimeMachine(5, false);
+        testTimeMachine(7, false);
+        System.out.println("\n\n##############################################\n\n");
+        testTimeMachine(3, true);
+        testTimeMachine(5, true);
+        testTimeMachine(7, true);
     }
 
     /**
-     *
-     * @param firstRock
-     *
-     * Si firstRock = true, alors le premier coup doit etre un Rock
+     * @param firstRock Si firstRock = true, alors le premier coup doit etre un Rock
      */
 
     public static void playWithoutGUI(boolean firstRock) {
-
 
 
         Board board = new Board(2);
@@ -85,10 +96,8 @@ public class Main {
         Player p1 = new Player(1);
 
 
-
         int tour = 0;
         boolean sonTour = true;
-
 
 
         Player pCourant = p0;
@@ -178,7 +187,7 @@ public class Main {
     }
 
 
-    public static void joueurVSordi(boolean firstRock){
+    public static void joueurVSordi(boolean firstRock) {
 
         System.out.println("Un joueur vs Ordinateur");
 
@@ -209,10 +218,10 @@ public class Main {
 
             Scanner scanner = new Scanner(System.in);
 
-            if(pCourant.getNumber() == 1){
+            if (pCourant.getNumber() == 1) {
                 board = board.minimax(board, pMachine, 2, new Eval0(), firstRock);
                 firstRock = false;
-            }else {
+            } else {
                 while (sonTour) {
 
                     System.out.println("Veuillez saisir un coup :");
@@ -228,7 +237,7 @@ public class Main {
                         int col = Integer.parseInt(entree[2]);
 
 
-                        if (entree[0].equals("Q") && !firstRock ) { //joueur courant joue une Queen
+                        if (entree[0].equals("Q") && !firstRock) { //joueur courant joue une Queen
                             if (board.isAccessible2(line, col, pCourant) && board.placeQueen2(line, col, pCourant)) {
                                 tour++;
                                 sonTour = false;
@@ -282,42 +291,49 @@ public class Main {
     }
 
 
-    public static void MachineVSMachine(boolean firstRock){
+    public static void MachineVSMachine(int sizeBoard, boolean firstRock) {
 
-        System.out.println("Un joueur vs Ordinateur");
+        //System.out.println("Un joueur vs Ordinateur");
 
-        Board board = new Board(3);
+        Board board = new Board(sizeBoard);
+        Board boardEval;
 
         Player p0 = new Player(0);
         Player pMachine = new Player(1);
 
 
         int tour = 0;
-        boolean sonTour = true;
+        boolean clear = false;
 
         Player pCourant = p0;
         Player pGagnant = p0;
 
-        while (!board.isFinal()) {
+        while (!board.isFinal() && !clear) {
 
-            sonTour = true;
+
 
             tour++;
 
-            System.out.println("\n\n==== TOUR " + tour + " ====\n");
+            /*System.out.println("\n\n==== TOUR " + tour + " ====\n");
             System.out.println("Tour de : Joueur " + pCourant.getNumber());
 
             System.out.println("\nScore de Joueur " + p0.getNumber() + " : " + board.getScore(p0));
             System.out.println("Score de Joueur " + pMachine.getNumber() + " : " + board.getScore(pMachine));
 
+            System.out.println("\n\n" + board.toStringAccess2(pCourant));*/
 
-            System.out.println("\n\n" + board.toStringAccess2(pCourant));
 
+            if (pCourant.getNumber() == 1) {
+                boardEval = board.minimax(board, pMachine, 2, new Eval0(), firstRock);
+            } else {
+                boardEval = board.minimax(board, p0, 2, new Eval0(), firstRock);
+            }
 
-            if(pCourant.getNumber() == 1){
-                board = board.minimax(board, pMachine, 2, new Eval0(), firstRock);
-            }else {
-                board = board.minimax(board, p0, 2, new Eval0(), firstRock);
+            if(!boardEval.isCleared()){
+                board = boardEval;
+            }
+            else{
+                clear = true;
             }
 
             firstRock = false;
@@ -331,10 +347,9 @@ public class Main {
             }
 
 
-
         }
 
-        System.out.println("\n\n==== PARTIE TERMINEE ====");
+        /*System.out.println("\n\n==== PARTIE TERMINEE ====");
 
         System.out.println(board.toString());
 
@@ -342,14 +357,14 @@ public class Main {
         System.out.println("Gagnant : Joueur " + pGagnant.getNumber());
         System.out.println("Score : " + board.getScore(pGagnant));
         System.out.println("Perdant : Joueur " + pCourant.getNumber());
-        System.out.println("Score : " + board.getScore(pCourant));
+        System.out.println("Score : " + board.getScore(pCourant));*/
     }
 
 
     public static void main(String[] args) {
 
 
-        Board board = new Board(4);
+        Board board = new Board(5);
 
         Player p00 = new Player(0);
         Player p01 = new Player(1);
@@ -373,10 +388,13 @@ public class Main {
 
         //test_diffent_time();
 
-        //MachineVSMachine(true);
+        //MachineVSMachine(5,true);
 
-        GameUI gui = new GameUI(board);
-        gui.launch();
+        testDifferentTimeMachine();
+
+
+        //GameUI gui = new GameUI(board);
+        //gui.launch();
 
     }
 }
