@@ -171,6 +171,163 @@ public class Main {
 
     }
 
+
+    public static void joueurVSordi(boolean firstRock){
+
+        System.out.println("Un joueur vs Ordinateur");
+
+        Board board = new Board(2);
+
+        Player p0 = new Player(0);
+        Player pMachine = new Player(1);
+
+
+        int tour = 0;
+        boolean sonTour = true;
+
+        Player pCourant = p0;
+        Player pGagnant = p0;
+
+        while (board.numberOfAccessible2(pCourant) > 0) {
+
+            sonTour = true;
+
+            System.out.println("\n\n==== TOUR " + tour + " ====\n");
+            System.out.println("Tour de : Joueur " + pCourant.getNumber());
+
+            System.out.println("\nScore de Joueur " + p0.getNumber() + " : " + board.getScore(p0));
+            System.out.println("Score de Joueur " + pMachine.getNumber() + " : " + board.getScore(pMachine));
+
+
+            System.out.println("\n\n" + board.toStringAccess2(pCourant));
+
+            Scanner scanner = new Scanner(System.in);
+
+            if(pCourant.getNumber() == 1){
+                board = board.minimax(board, pMachine, 2, new Eval0());
+            }else {
+                while (sonTour) {
+
+                    System.out.println("Veuillez saisir un coup :");
+                    System.out.println("Usage : Q/R line column");
+                    String str = scanner.nextLine();
+                    String[] entree = str.split(" ");
+
+                    System.out.println(entree[0]);
+
+                    if (entree.length == 3) {
+
+                        int line = Integer.parseInt(entree[1]);
+                        int col = Integer.parseInt(entree[2]);
+
+
+                        if (entree[0].equals("Q") && (!firstRock && tour == 1)) { //joueur courant joue une Queen
+                            if (board.isAccessible2(line, col, pCourant) && board.placeQueen2(line, col, pCourant)) {
+                                tour++;
+                                sonTour = false;
+                                System.out.println("Queen placée en " + line + "," + col);
+                            } else {
+                                System.out.println("Case inacessible, rejouer\n");
+                            }
+                        }
+
+                        if (entree[0].equals("R")) { //joueur courant joue un Rock
+                            if (board.isEmpty(line, col) && board.placeRock2(line, col, pCourant)) {
+                                firstRock = false;
+                                tour++;
+                                sonTour = false;
+                                System.out.println("Rock placé en " + line + "," + col);
+                            } else {
+                                System.out.println("Case inacessible, rejouer\n");
+                            }
+                        }
+
+                        if (entree[0].equals("Q") && entree[0].equals("R")) { //joueur courant joue autre chose
+                            System.out.println("Coup non valide, rejouer\n");
+                        }
+                    } else { //joueur courant joue mauvais coup
+                        System.out.println("Coup non valide, rejouer\n");
+                    }
+                }
+            }
+
+            if (pCourant.getNumber() == p0.getNumber()) {
+                pCourant = pMachine;
+                pGagnant = p0;
+            } else {
+                pCourant = p0;
+                pGagnant = pMachine;
+            }
+
+        }
+
+        System.out.println("\n\n==== PARTIE TERMINEE ====");
+
+
+        System.out.println("Gagnant : Joueur " + pGagnant.getNumber());
+        System.out.println("Score : " + board.getScore(pGagnant));
+        System.out.println("Perdant : Joueur " + pCourant.getNumber());
+        System.out.println("Score : " + board.getScore(pCourant));
+
+    }
+
+
+    public static void MachineVSMachine(boolean firstRock){
+
+        System.out.println("Un joueur vs Ordinateur");
+
+        Board board = new Board(2);
+
+        Player p0 = new Player(0);
+        Player pMachine = new Player(1);
+
+
+        int tour = 0;
+        boolean sonTour = true;
+
+        Player pCourant = p0;
+        Player pGagnant = p0;
+
+        while (board.numberOfAccessible2(pCourant) > 0) {
+
+            sonTour = true;
+
+            System.out.println("\n\n==== TOUR " + tour + " ====\n");
+            System.out.println("Tour de : Joueur " + pCourant.getNumber());
+
+            System.out.println("\nScore de Joueur " + p0.getNumber() + " : " + board.getScore(p0));
+            System.out.println("Score de Joueur " + pMachine.getNumber() + " : " + board.getScore(pMachine));
+
+
+            System.out.println("\n\n" + board.toStringAccess2(pCourant));
+
+
+            if(pCourant.getNumber() == 1){
+                board = board.minimax(board, pMachine, 2, new Eval0());
+            }else {
+                board = board.minimax(board, p0, 2, new Eval0());
+            }
+
+            if (pCourant.getNumber() == p0.getNumber()) {
+                pCourant = pMachine;
+                pGagnant = p0;
+            } else {
+                pCourant = p0;
+                pGagnant = pMachine;
+            }
+
+        }
+
+        System.out.println("\n\n==== PARTIE TERMINEE ====");
+
+
+        System.out.println("Gagnant : Joueur " + pGagnant.getNumber());
+        System.out.println("Score : " + board.getScore(pGagnant));
+        System.out.println("Perdant : Joueur " + pCourant.getNumber());
+        System.out.println("Score : " + board.getScore(pCourant));
+    }
+
+
     public static void main(String[] args) {
 
 
