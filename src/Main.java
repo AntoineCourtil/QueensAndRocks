@@ -390,9 +390,18 @@ public class Main {
                 pGagnant = pMachine;
             }
 
-
         }
-        return pGagnant;
+
+        if(board.getScore(p0) > board.getScore(pMachine)){
+            System.out.println("P0 qui gagne : "+ board.getScore(p0));
+            System.out.println("PMachine  : "+ board.getScore(pMachine));
+            return p0;
+        }else{
+            System.out.println("PMachine qui gagne : "+ board.getScore(pMachine));
+            System.out.println("P0  : "+ board.getScore(p0));
+            return pMachine;
+        }
+        //return pGagnant;
     }
 
 
@@ -400,14 +409,17 @@ public class Main {
         EvalLambda evalLambda = new EvalLambda();//Lambda
         EvalLambda adv_evalLambda = new EvalLambda();//Lambda prime
         adv_evalLambda.addLambda(0.01);
+        System.out.println("0? "+adv_evalLambda.getLambda());
 
         //C'est le player 1 qui joue avec evalLambda
         Player gagnant;
 
-        while (adv_evalLambda.getLambda() - evalLambda.getLambda() <= 0.1) {
+        while (Math.abs(adv_evalLambda.getLambda() - evalLambda.getLambda()) <= 0.1) {
+
+            System.out.println(adv_evalLambda.getLambda() - evalLambda.getLambda());
             gagnant = MachineVSMachineWithLambda(4, false, evalLambda, adv_evalLambda);
             if (gagnant.getNumber() == 1) {//C'est lambda qui gagne
-                adv_evalLambda.addLambda(0.01);
+                adv_evalLambda.addLambda(-0.01);
             } else {
                 evalLambda.setLambda(adv_evalLambda.getLambda());
             }
@@ -445,8 +457,9 @@ public class Main {
 
         //MachineVSMachine(5,true);
 
-        testDifferentTimeMachine();
+        //testDifferentTimeMachine();
 
+        System.out.println("Lambda : "+optimisation());
 
         //GameUI gui = new GameUI(board);
         //gui.launch();
