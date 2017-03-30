@@ -8,6 +8,7 @@ import java.util.Random;
 public class Eval2 implements Eval {
     @Override
     public float getEval(Player player, Board board) {
+        System.out.println("EVAL2 : \n"+board.toString());
 
         int n = 0;
         Player pAdversaire;
@@ -27,7 +28,6 @@ public class Eval2 implements Eval {
             Board board1 = board.clone();
 
 
-            System.out.println(board1.toString());
 
             while(!board1.isSolution()) {
 

@@ -541,13 +541,19 @@ public class Board {
         float score;
         Board e_sortie = new Board(getSize());// Etat indiquant qu'aucun coup n'est possible
 
+
         for (Board successor : successeurs) {
+
             score = evaluation(successor, currentPlayer, minimaxDepth, evaluation, currentPlayer, onlyRock);
             if (score >= score_max) {
                 e_sortie = successor;
                 score_max = score;
             }
         }
+
+        System.out.println(e_sortie.toString());
+
+
         return e_sortie;
     }
 
@@ -834,6 +840,12 @@ public class Board {
         }
 
         if (c == 0) {
+            System.out.println("C=0 : \n"+b.toString());
+            try {
+                wait(4);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
             return e.getEval(currentPlayer, b);
         }
 

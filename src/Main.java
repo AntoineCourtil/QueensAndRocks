@@ -323,10 +323,12 @@ public class Main {
 
 
             if (pCourant.getNumber() == 1) {
-                boardEval = board.minimax(board, pMachine, 2, new Eval2(), firstRock);
+                boardEval = board.minimax(board, pMachine, 2, new Eval0(), firstRock);
+
             } else {
-                boardEval = board.minimax(board, p0, 2, new Eval2(), firstRock);
+                boardEval = board.minimax(board, p0, 2, new Eval0(), firstRock);
             }
+
 
             if (!boardEval.isCleared()) {
                 board = boardEval;
