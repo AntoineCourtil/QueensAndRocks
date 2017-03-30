@@ -409,7 +409,6 @@ public class Main {
         EvalLambda evalLambda = new EvalLambda();//Lambda
         EvalLambda adv_evalLambda = new EvalLambda();//Lambda prime
         adv_evalLambda.addLambda(0.01);
-        System.out.println("0? "+adv_evalLambda.getLambda());
 
         //C'est le player 1 qui joue avec evalLambda
         Player gagnant;
@@ -419,7 +418,7 @@ public class Main {
             System.out.println(adv_evalLambda.getLambda() - evalLambda.getLambda());
             gagnant = MachineVSMachineWithLambda(4, false, evalLambda, adv_evalLambda);
             if (gagnant.getNumber() == 1) {//C'est lambda qui gagne
-                adv_evalLambda.addLambda(-0.01);
+                adv_evalLambda.addLambda(0.01);
             } else {
                 evalLambda.setLambda(adv_evalLambda.getLambda());
             }
