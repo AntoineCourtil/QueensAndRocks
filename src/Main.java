@@ -311,7 +311,6 @@ public class Main {
         while (!board.isFinal() && !clear) {
 
 
-
             tour++;
 
             /*System.out.println("\n\n==== TOUR " + tour + " ====\n");
@@ -329,10 +328,9 @@ public class Main {
                 boardEval = board.minimax(board, p0, 2, new Eval0(), firstRock);
             }
 
-            if(!boardEval.isCleared()){
+            if (!boardEval.isCleared()) {
                 board = boardEval;
-            }
-            else{
+            } else {
                 clear = true;
             }
 
@@ -348,16 +346,73 @@ public class Main {
 
 
         }
-
-        /*System.out.println("\n\n==== PARTIE TERMINEE ====");
-
-        System.out.println(board.toString());
+    }
 
 
-        System.out.println("Gagnant : Joueur " + pGagnant.getNumber());
-        System.out.println("Score : " + board.getScore(pGagnant));
-        System.out.println("Perdant : Joueur " + pCourant.getNumber());
-        System.out.println("Score : " + board.getScore(pCourant));*/
+    public static Player MachineVSMachineWithLambda(int sizeBoard, boolean firstRock, EvalLambda evalLambda, EvalLambda adv_evalLambda) {
+
+
+        Board board = new Board(sizeBoard);
+        Board boardEval;
+
+        Player p0 = new Player(0);
+        Player pMachine = new Player(1);
+
+
+        int tour = 0;
+        boolean clear = false;
+
+        Player pCourant = p0;
+        Player pGagnant = p0;
+
+        while (!board.isFinal() && !clear) {
+
+            tour++;
+            if (pCourant.getNumber() == 1) {
+                boardEval = board.minimax(board, pMachine, 2, evalLambda, firstRock);
+            } else {
+                boardEval = board.minimax(board, p0, 2, adv_evalLambda, firstRock);
+            }
+
+            if (!boardEval.isCleared()) {
+                board = boardEval;
+            } else {
+                clear = true;
+            }
+
+            firstRock = false;
+
+            if (pCourant.getNumber() == p0.getNumber()) {
+                pCourant = pMachine;
+                pGagnant = p0;
+            } else {
+                pCourant = p0;
+                pGagnant = pMachine;
+            }
+
+
+        }
+        return pGagnant;
+    }
+
+
+    public static float optimisation() {
+        EvalLambda evalLambda = new EvalLambda();//Lambda
+        EvalLambda adv_evalLambda = new EvalLambda();//Lambda prime
+        adv_evalLambda.addLambda(0.01);
+
+        //C'est le player 1 qui joue avec evalLambda
+        Player gagnant;
+
+        while (adv_evalLambda.getLambda() - evalLambda.getLambda() <= 0.1) {
+            gagnant = MachineVSMachineWithLambda(4, false, evalLambda, adv_evalLambda);
+            if (gagnant.getNumber() == 1) {//C'est lambda qui gagne
+                adv_evalLambda.addLambda(0.01);
+            } else {
+                evalLambda.setLambda(adv_evalLambda.getLambda());
+            }
+        }
+        return (float) evalLambda.getLambda();
     }
 
 

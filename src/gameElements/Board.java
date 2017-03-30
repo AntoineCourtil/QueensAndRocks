@@ -527,7 +527,7 @@ public class Board {
         //Si on ne peux plus poser de reines (le nombre max est atteint) et si un des deux joueurs n'a plus de
         //cailloux à poser
 
-        if(numberOfPieces == size*size){
+        if (numberOfPieces == size * size) {
             return true;
         }
 
@@ -882,18 +882,43 @@ public class Board {
 
     }
 
-    public boolean isCleared(){
+    public boolean isCleared() {
         boolean clear = true;
 
-        for(int i = 0; i< getSize(); i++){
-            for(int j = 0; j< getSize(); j++){
-                if(!isEmpty(i,j)){
+        for (int i = 0; i < getSize(); i++) {
+            for (int j = 0; j < getSize(); j++) {
+                if (!isEmpty(i, j)) {
                     return false;
                 }
             }
         }
 
         return clear;
+    }
+
+
+    public int numberOfIrrecoverableEnemy(Player player) {
+        int numberOfIrrecoverable = 0;
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Square s = getSquare(i, j);
+                if (s.isEnemyQueen(player)) {
+                    //Si on a une queen dans un des 4 angles
+                    if ((i == size - 1 && j == size - 1) || (i == 0 && j == size - 1) ||
+                            (i == 0 && j == 0) || (i == size - 1 && j == 0)) {
+                        numberOfIrrecoverable += 3;
+                    } else if (j == 0 || j == size - 1 || i == 0 || i == size - 1) {
+                        //La queen est sur un bord mais pas dans les angles
+                        numberOfIrrecoverable += 5;
+                    }else{
+                        //C'est une reine qui n'est pas sur les bords
+                        numberOfIrrecoverable += 8;
+                    }
+                }
+            }
+        }
+        return numberOfIrrecoverable;
     }
 
 
