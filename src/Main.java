@@ -323,9 +323,9 @@ public class Main {
 
 
             if (pCourant.getNumber() == 1) {
-                boardEval = board.minimax(board, pMachine, 2, new Eval0(), firstRock);
+                boardEval = board.minimax(board, pMachine, 2, new Eval2(), firstRock);
             } else {
-                boardEval = board.minimax(board, p0, 2, new Eval0(), firstRock);
+                boardEval = board.minimax(board, p0, 2, new Eval2(), firstRock);
             }
 
             if (!boardEval.isCleared()) {
@@ -454,11 +454,11 @@ public class Main {
 
         //test_diffent_time();
 
-        //MachineVSMachine(5,true);
+        MachineVSMachine(4,false);
 
         //testDifferentTimeMachine();
 
-        System.out.println("Lambda : "+optimisation());
+        //System.out.println("Lambda : "+optimisation());
 
         //GameUI gui = new GameUI(board);
         //gui.launch();

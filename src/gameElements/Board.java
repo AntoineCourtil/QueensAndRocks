@@ -36,7 +36,7 @@ public class Board {
         this.board = board;
     }
 
-    public Board(int size_board) {
+    public 2Board(int size_board) {
         this.game = new Game();
         this.size = size_board;
         this.numberOfPieces = 0;
