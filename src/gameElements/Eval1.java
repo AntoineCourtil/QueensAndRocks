@@ -19,7 +19,7 @@ public class Eval1 implements Eval{
         int adv_numberIrrecoverable = board.numberOfIrrecoverableEnemy(adversaire);
 
         int totalPlayer = accessibles - adv_accessibles + adv_numberIrrecoverable - numberIrrecoverable;
-        int adv_totalPlayer = accessibles - adv_accessibles + adv_numberIrrecoverable - numberIrrecoverable;
+        int adv_totalPlayer = adv_accessibles -  accessibles + numberIrrecoverable - adv_numberIrrecoverable ;
 
         return totalPlayer - adv_totalPlayer;
     }
