@@ -10,36 +10,54 @@ import java.util.*;
 
 public class Main {
 
+    public static void testHasSolutions(int sizeBoard) {
+        Board board = new Board(sizeBoard);
+
+        ArrayList<Board> boardArrayList = board.depthFirstSearch(board);
+        int i = 0;
+        for (Board b : boardArrayList) {
+            System.out.println("Board : " + i);
+            if (b.isSolution()) {
+                System.out.println("        SOLUTION : ");
+                System.out.println(b.toString());
+            }
+            System.out.println("_____________________________");
+            i++;
+        }
+
+
+    }
+
     public static void test_time(int taille_board) {
         Board board = new Board(taille_board);
         Player p00 = new Player(0);
         Player p01 = new Player(1);
 
-        board.setPiece(0, 0, new Queen(p00));
+        //board.setPiece(0, 0, new Queen(p00));
 
         long start_time = new Date().getTime();
         board.depthFirstSearch(board);
         long end_time = new Date().getTime();
-        System.out.println("--------------------V1 : EXECUTION TIME (sizeof board : " + taille_board + ") -----------------");
+        //System.out.println("--------------------V1 : EXECUTION TIME (sizeof board : " + taille_board + ") -----------------");
         long execution_time = end_time - start_time;
 
         //System.out.println(start_time);
         //System.out.println(end_time);
-        System.out.println(execution_time + " ms (" + execution_time / 1000 + " s)");
-        System.out.println("----------------------FIN V1 TEST TIME----------------------------");
+        System.out.println("sizeBoard : " + taille_board + "  -  depthFirstSearch : " + execution_time + " ms (" + execution_time / 1000 + " s)");
+        //System.out.println("----------------------FIN V1 TEST TIME----------------------------");
 
         board = new Board(taille_board);
         board.setPiece(0, 0, new Queen(p00));
         start_time = new Date().getTime();
         board.depthFirstSearch2(board);
         end_time = new Date().getTime();
-        System.out.println("--------------------V2 : EXECUTION TIME (sizeof board : " + taille_board + ") -----------------");
+        //System.out.println("--------------------V2 : EXECUTION TIME (sizeof board : " + taille_board + ") -----------------");
         execution_time = end_time - start_time;
 
         //System.out.println(start_time);
         //System.out.println(end_time);
-        System.out.println(execution_time + " ms (" + execution_time / 1000 + " s)");
-        System.out.println("----------------------FIN V2 TEST TIME----------------------------");
+        System.out.println("sizeBoard : " + taille_board + "  -  depthFirstSearch2 : " + execution_time + " ms (" + execution_time / 1000 + " s)");
+        //System.out.println("----------------------FIN V2 TEST TIME----------------------------");
 
         board = new Board(taille_board);
         board.setPiece(0, 0, new Queen(p00));
@@ -47,20 +65,20 @@ public class Main {
         start_time = new Date().getTime();
         board.depthFirstSearchArray();
         end_time = new Date().getTime();
-        System.out.println("--------------------V_ARRAY : EXECUTION TIME (sizeof board : " + taille_board + ") -----------------");
+        //.out.println("--------------------V_ARRAY : EXECUTION TIME (sizeof board : " + taille_board + ") -----------------");
         execution_time = end_time - start_time;
 
         //System.out.println(start_time);
         //System.out.println(end_time);
-        System.out.println(execution_time + " ms (" + execution_time / 1000 + " s)");
-        System.out.println("----------------------FIN V_ARRAY TEST TIME----------------------------");
+        System.out.println("sizeBoard : " + taille_board + "  -  depthFirstSearchArray : " + execution_time + " ms (" + execution_time / 1000 + " s)\n");
+        //System.out.println("----------------------FIN V_ARRAY TEST TIME----------------------------");
     }
 
     public static void test_diffent_time() {
+        test_time(4);
+        test_time(6);
         test_time(8);
-        test_time(9);
         test_time(10);
-        test_time(11);
         test_time(12);
     }
 
@@ -394,13 +412,13 @@ public class Main {
 
         }
 
-        if(board.getScore(p0) > board.getScore(pMachine)){
-            System.out.println("P0 qui gagne : "+ board.getScore(p0));
-            System.out.println("PMachine  : "+ board.getScore(pMachine));
+        if (board.getScore(p0) > board.getScore(pMachine)) {
+            System.out.println("P0 qui gagne : " + board.getScore(p0));
+            System.out.println("PMachine  : " + board.getScore(pMachine));
             return p0;
-        }else{
-            System.out.println("PMachine qui gagne : "+ board.getScore(pMachine));
-            System.out.println("P0  : "+ board.getScore(p0));
+        } else {
+            System.out.println("PMachine qui gagne : " + board.getScore(pMachine));
+            System.out.println("P0  : " + board.getScore(p0));
             return pMachine;
         }
         //return pGagnant;
@@ -452,11 +470,13 @@ public class Main {
 
         //ArrayList<Board> alb = board.getSuccessors();
 
-        //test_time(9);
+        //test_time(3);
+
+        testHasSolutions(3);
 
         //test_diffent_time();
 
-        MachineVSMachine(4,false);
+        //MachineVSMachine(4,false);
 
         //testDifferentTimeMachine();
 

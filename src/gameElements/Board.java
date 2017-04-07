@@ -840,12 +840,6 @@ public class Board {
         }
 
         if (c == 0) {
-            System.out.println("C=0 : \n"+b.toString());
-            try {
-                wait(4);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
             return e.getEval(currentPlayer, b);
         }
 
