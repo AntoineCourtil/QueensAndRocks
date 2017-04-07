@@ -551,7 +551,7 @@ public class Board {
             }
         }
 
-        System.out.println(e_sortie.toString());
+        //System.out.println(e_sortie.toString());
 
 
         return e_sortie;

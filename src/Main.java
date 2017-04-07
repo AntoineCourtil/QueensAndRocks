@@ -86,9 +86,10 @@ public class Main {
         long start_time = new Date().getTime();
         MachineVSMachine(sizeBoard, firstRock);
         long end_time = new Date().getTime();
-        System.out.println("-------------------- EXECUTION TIME (sizeBoard : " + sizeBoard + " | firstRock : " + firstRock + ") -----------------");
+        //System.out.println("-------------------- EXECUTION TIME (sizeBoard : " + sizeBoard + " | firstRock : " + firstRock + ") -----------------");
         long execution_time = end_time - start_time;
-        System.out.println(execution_time + " ms (" + execution_time / 1000 + " s)\n\n");
+        //System.out.println(execution_time + " ms (" + execution_time / 1000 + " s)\n\n");
+        System.out.println("sizeBoard : " + sizeBoard + "  -  firstRock : " + firstRock + "  :  " + execution_time + " ms (" + execution_time / 1000 + " s)\n");
     }
 
     public static void testDifferentTimeMachine() {
@@ -319,6 +320,8 @@ public class Main {
         Player p0 = new Player(0);
         Player pMachine = new Player(1);
 
+        Player pPerdant;
+
 
         int tour = 0;
         boolean clear = false;
@@ -341,10 +344,10 @@ public class Main {
 
 
             if (pCourant.getNumber() == 1) {
-                boardEval = board.minimax(board, pMachine, 2, new Eval0(), firstRock);
+                boardEval = board.minimax(board, pMachine, 2, new Eval1(), firstRock);
 
             } else {
-                boardEval = board.minimax(board, p0, 2, new Eval0(), firstRock);
+                boardEval = board.minimax(board, p0, 2, new Eval1(), firstRock);
             }
 
 
@@ -366,6 +369,25 @@ public class Main {
 
 
         }
+
+        if (board.getScore(p0) > board.getScore(pMachine)) {
+            pGagnant = p0;
+            pPerdant = pMachine;
+        } else {
+            pGagnant = pMachine;
+            pPerdant = p0;
+        }
+
+
+        /*System.out.println("\n\n==== PARTIE TERMINEE ====");
+
+        System.out.println(board.toString());
+
+
+        System.out.println("Gagnant : Joueur " + pGagnant.getNumber());
+        System.out.println("Score : " + board.getScore(pGagnant));
+        System.out.println("Perdant : Joueur " + pPerdant.getNumber());
+        System.out.println("Score : " + board.getScore(pPerdant));*/
     }
 
 
@@ -472,13 +494,13 @@ public class Main {
 
         //test_time(3);
 
-        testHasSolutions(3);
+        //testHasSolutions(3);
 
         //test_diffent_time();
 
         //MachineVSMachine(4,false);
 
-        //testDifferentTimeMachine();
+        testDifferentTimeMachine();
 
         //System.out.println("Lambda : "+optimisation());
 
